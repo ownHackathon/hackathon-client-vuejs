@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Lato Regular';
+    src: url(fonts/Lato-Regular.ttf);
+}
+
+body {
+    color: #94a3b8;
+    background-color: #090d15;
+    font-family: 'Lato Regular', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+a:link, a:visited {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #92b4f2;
+
+}

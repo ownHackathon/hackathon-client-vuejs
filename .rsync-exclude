@@ -1,0 +1,13 @@
+**/.github/
+**/config/
+**/data/
+**/dist/
+**/node_modules
+**/public/api/
+**/public/.htaccess
+**/src/
+**/vendor/
+/*.*
+/.*
+/constants
+LICENSE
