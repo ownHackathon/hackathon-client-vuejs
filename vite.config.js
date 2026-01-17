@@ -8,12 +8,12 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   root: './',
+  publicDir: 'static-assets',
   build: {
     outDir: 'public',
     sourcemap: 'hidden',
-    emptyOutDir: false,
+    emptyOutDir: true,
   },
-  publicDir: 'assets',
   plugins: [
     vue(),
     viteCompression({algorithm: 'gzip'}),

@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
 const router = createRouter({
-      history: createWebHistory(),
+      history: createWebHistory('/'),
       routes: [
         {
           component: () => import('@app/components/AppView.vue'),
@@ -33,10 +33,6 @@ const router = createRouter({
               component: () => import('@app/views/404NotFoundView.vue'),
             },
           ]
-        },
-        {
-          path: '/',
-          redirect: '/app'
         }
       ]
     }
