@@ -5,28 +5,35 @@ export const useTokenStore = defineStore('tokenStore', () => {
   const accessToken = ref('');
   const refreshToken = ref('');
 
+  // eslint-disable-next-line vue/return-in-computed-property
   const getAccessToken = computed(() => {
-    if (accessToken.value.length > 0) {
-      return accessToken.value;
-    }
+    if (accessToken.value) return accessToken.value;
 
-    return null;
+    const token = sessionStorage.getItem('accessToken');
+    if (token) {
+      accessToken.value = token;
+      return token;
+    }
   });
 
   const getRefreshToken = computed(() => {
-    if (refreshToken.value.length > 0) {
+    if (refreshToken.value) {
       return refreshToken;
     }
 
     const token = localStorage.getItem('token');
-    if (token !== null && token.length > 0) {
+    if (token) {
       refreshToken.value = token;
 
-      return refreshToken.value;
+      return token;
     }
 
     return null;
   });
+
+  function setAccessToken() {
+    sessionStorage.setItem('accessToken', accessToken.value);
+  }
 
   function persistToken() {
     localStorage.setItem('token', refreshToken.value);
@@ -34,9 +41,11 @@ export const useTokenStore = defineStore('tokenStore', () => {
 
   function removeToken() {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('accessToken');
     accessToken.value = '';
+
     refreshToken.value = '';
   }
 
-  return {accessToken, refreshToken, persistToken, getAccessToken, getRefreshToken, removeToken};
+  return {setAccessToken, accessToken, refreshToken, persistToken, getAccessToken, getRefreshToken, removeToken};
 });

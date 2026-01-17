@@ -10,8 +10,9 @@ axios.interceptors.request.use((config) => {
   const accessToken = tokenStore.getAccessToken;
 
 
-  if (accessToken !== null) {
+  if (accessToken) {
     config.headers.Authorization = `${accessToken}`;
+    console.log(accessToken)
   }
 
   config.headers["Content-Type"] = "application/json";
@@ -24,13 +25,13 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
 
   if (error.response.status === 401) {
-    router.push("/login");
-    return;
+    router.push({name: 'app_login'});
+    return Promise.reject(error);
   }
 
   if (error.response.status === 500) {
     router.push("/error");
-    return;
+    return Promise.reject(error);
   }
 
   return Promise.reject(error);

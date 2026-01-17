@@ -67,15 +67,17 @@
 
 <script setup>
 import axios from "axios";
-import {ref, reactive} from "vue";
+import {reactive, ref} from "vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
-import {InputGroup, InputGroupAddon, FloatLabel, InputText, Message, Password, Checkbox, Button} from "primevue";
+import {Button, Checkbox, FloatLabel, InputGroup, InputGroupAddon, InputText, Message, Password} from "primevue";
 import {useClientIDStore} from "@/stores/ClientIDStore.js";
+import {useTokenStore} from "@/stores/TokenStore.js";
 
 const router = useRouter();
 const toast = useToast();
 const clientIDStore = useClientIDStore();
+const tokenStore = useTokenStore();
 
 const payload = reactive({
   email: '',
@@ -112,12 +114,20 @@ async function submitlogin() {
       .post("/api/account/authentication", payload,)
       .then((response) => {
         if (response?.status === 200) {
+          const {accessToken, refreshToken} = response.data;
+          tokenStore.accessToken = accessToken;
+          tokenStore.refreshToken = refreshToken;
+          tokenStore.setAccessToken();
+
           if (rememberMe.value) {
             clientIDStore.persistClientID();
+            tokenStore.persistToken();
           }
+
           toast.add({severity: 'success', summary: 'Willkommen', detail: 'Anmeldung erfolgreich', life: 3000});
           router.back();
         }
+
       })
       .catch((error) => {
             if (error?.response.status === 400 || error?.response.status === 403) {

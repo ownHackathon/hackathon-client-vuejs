@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router';
+import {useTokenStore} from "@/stores/TokenStore.js";
 
 const router = createRouter({
       history: createWebHistory('/'),
@@ -15,12 +16,14 @@ const router = createRouter({
             {
               path: 'login',
               name: 'app_login',
-              component: () => import('@app/views/LoginView.vue')
+              component: () => import('@app/views/LoginView.vue'),
+              meta: { guestOnly: true }
             },
             {
               path: 'logout',
               name: 'app_logout',
-              component: () => import('@app/views/LogoutView.vue')
+              component: () => import('@app/views/LogoutView.vue'),
+              meta: { requiresAuth: true }
             },
             {
               path: 'test',
@@ -37,5 +40,20 @@ const router = createRouter({
       ]
     }
 );
+
+router.beforeEach((to, from, next) => {
+  const tokenStore = useTokenStore();
+  const isAuthenticated = !!tokenStore.getRefreshToken;
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    return next({ name: 'app_login' });
+  }
+
+  if (to.meta.guestOnly && isAuthenticated) {
+    return next({ name: 'app_home' });
+  }
+
+  next();
+});
 
 export default router;
