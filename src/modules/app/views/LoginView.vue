@@ -127,10 +127,9 @@ async function submitlogin() {
           toast.add({severity: 'success', summary: 'Willkommen', detail: 'Anmeldung erfolgreich', life: 3000});
           router.back();
         }
-
       })
       .catch((error) => {
-            if (error?.response.status === 400 || error?.response.status === 403) {
+            if (error?.response.status === 400 || error?.response.status === 401 || error?.response.status === 403) {
               toast.add({severity: 'error', summary: 'Fehler bei der Anmeldung', detail: 'Eingegebene Daten prüfen', life: 5000});
             } else {
               toast.add({severity: 'error', summary: 'Fehler bei der Anmeldung', detail: 'Unbekannter Fehler', life: 5000});

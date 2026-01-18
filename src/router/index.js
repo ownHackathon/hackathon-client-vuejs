@@ -9,6 +9,10 @@ const router = createRouter({
           path: '/app',
           children: [
             {
+              path: '/',
+              redirect: '/app'
+            },
+            {
               path: '',
               name: 'app_home',
               component: () => import('@app/views/HomeView.vue')
@@ -23,6 +27,13 @@ const router = createRouter({
               path: 'logout',
               name: 'app_logout',
               component: () => import('@app/views/LogoutView.vue'),
+              beforeEnter: (to, from, next) => {
+                if (from.name === 'app_login') {
+                  next({ name: 'app_home' });
+                } else {
+                  next();
+                }
+              },
               meta: { requiresAuth: true }
             },
             {

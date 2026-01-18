@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-content-center p-5">
-    <ProgressSpinner /> <!-- Zeige einen Ladekreis während des Logouts -->
+    <ProgressSpinner />
     <Toast/>
   </div>
 </template>
@@ -28,17 +28,13 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error("Logout API Fehler:", error);
-    // Wir machen trotzdem weiter, um den lokalen Speicher zu säubern
   } finally {
-    // IMMER lokal aufräumen, egal ob die API Erfolg hatte oder nicht
     tokenStore.removeToken();
     clientIDStore.removeClientID();
     clientIDStore.setClientID();
 
-    // Ident-Header für künftige anonyme Anfragen setzen
     axios.defaults.headers.common['x-ident'] = `${clientIDStore.getClientID()}`;
 
-    // WICHTIG: Zu Login weiterleiten, nicht zu Home (Vermeidung von Auth-Loop)
     router.push({ name: 'app_login' });
   }
 });
