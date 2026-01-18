@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import {useTokenStore} from "@/stores/TokenStore.js";
+import {useAuthStore} from "@/stores/AuthStore.js";
 
 const router = createRouter({
       history: createWebHistory('/'),
@@ -33,8 +33,7 @@ const router = createRouter({
                 } else {
                   next();
                 }
-              },
-              meta: { requiresAuth: true }
+              }
             },
             {
               path: 'test',
@@ -53,8 +52,8 @@ const router = createRouter({
 );
 
 router.beforeEach((to, from, next) => {
-  const tokenStore = useTokenStore();
-  const isAuthenticated = !!tokenStore.getRefreshToken;
+  const authStore = useAuthStore();
+  const isAuthenticated = !!authStore.accessToken;
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next({ name: 'app_login' });

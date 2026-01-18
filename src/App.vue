@@ -4,8 +4,8 @@ import {useClientIDStore} from '@/stores/ClientIDStore.js';
 import axios from "axios";
 
 const clientIDStore = useClientIDStore();
-clientIDStore.setClientID();
-axios.defaults.headers.common['x-ident'] = `${clientIDStore.getClientID()}`;
+clientIDStore.regenerateClientID();
+axios.defaults.headers.common['x-ident'] = clientIDStore.uniqueClientID;
 </script>
 
 <template>

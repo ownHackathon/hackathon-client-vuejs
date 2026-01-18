@@ -2,33 +2,23 @@ import {defineStore} from "pinia";
 import {v7} from "uuid";
 import {ref} from "vue";
 
+
 export const useClientIDStore = defineStore('clientID', () => {
-  const uniqueClientID = ref(0);
+  const uniqueClientID = ref('');
 
-  function persistClientID() {
-    localStorage.setItem('uniqueID', uniqueClientID.value);
-    return uniqueClientID.value;
+  function regenerateClientID() {
+    uniqueClientID.value = v7();
   }
-
-  function removeClientID() {
-    localStorage.removeItem('uniqueID');
-    sessionStorage.removeItem('uniqueID');
-    uniqueClientID.value=0;
-  }
-
-  function setClientID() {
-    if (localStorage.getItem('uniqueID')) {
-      sessionStorage.setItem('uniqueID', localStorage.getItem('uniqueID'))
-    }
-    if (!sessionStorage.getItem('uniqueID')) {
-      sessionStorage.setItem('uniqueID', v7());
-    }
-    uniqueClientID.value = sessionStorage.getItem('uniqueID');
-  }
-
-  function getClientID() {
-    return localStorage.getItem('uniqueID') ?? uniqueClientID.value;
-  }
-
-  return {setClientID, getClientID, removeClientID, persistClientID};
+  return {uniqueClientID, regenerateClientID};
+}, {
+  persist: {
+    key: 'identify',
+    serializer: {
+      serialize: (state) => {
+        return btoa(JSON.stringify(state)); // Wandelt Objekt in Base64-String um
+      },
+      deserialize: (value) => {
+        return JSON.parse(atob(value)); // Wandelt Base64-String zurück in Objekt
+      }
+    }}
 });

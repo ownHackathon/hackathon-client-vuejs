@@ -1,18 +1,17 @@
 import axios from "axios";
 import router from "@/router";
-import {useTokenStore} from "@/stores/TokenStore.js";
+import {useAuthStore} from "@/stores/AuthStore.js";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
-  const tokenStore = useTokenStore();
-  const accessToken = tokenStore.getAccessToken;
+  const authStore = useAuthStore();
+  const accessToken = authStore.accessToken;
 
 
   if (accessToken) {
-    config.headers.Authorization = `${accessToken}`;
-    console.log(accessToken)
+    config.headers.Authorization = authStore.accessToken;
   }
 
   config.headers["Content-Type"] = "application/json";

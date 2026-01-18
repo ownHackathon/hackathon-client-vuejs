@@ -19,12 +19,14 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import Menubar from 'primevue/menubar';
 import SplitButton from 'primevue/splitbutton';
 import {useRouter} from "vue-router";
+import {useAuthStore } from "@/stores/AuthStore.js";
 
 const router = useRouter();
+const authStore = useAuthStore();
 
 const items = ref([
   {
@@ -36,15 +38,28 @@ const items = ref([
   },
 ]);
 
-const account = ref([
-  {
-    label: 'Anmelden',
-    icon: 'pi pi-lock',
-    command: () => {
-      router.push({name: 'app_login'})
+const account = computed(() => {
+  if (authStore.isLoggedIn) {
+    return [
+      {
+        label: 'Ausloggen',
+        icon: 'pi pi-sign-out', // Passendes Icon für Logout
+        command: () => {
+          router.push({ name: 'app_logout' })
+        }
+      }
+    ]
+  } else {
+  return [
+    {
+      label: 'Anmelden',
+      icon: 'pi pi-lock',
+      command: () => {
+        router.push({ name: 'app_login' })
+      }
     }
-  }
-])
+  ]}
+});
 
 const save = () => {
   router.push({name: 'app_login'})

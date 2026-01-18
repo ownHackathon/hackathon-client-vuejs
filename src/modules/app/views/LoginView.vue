@@ -47,11 +47,7 @@
             </InputGroup>
             <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error?.message }}</Message>
           </div>
-          <div class="flex flex-row pb-4 gap-6">
-            <div class="flex">
-              <Checkbox v-model="rememberMe" name="rememberMe" class="mr-2" binary/>
-              <label for="rememberMe">Angemeldet bleiben</label>
-            </div>
+          <div class="flex flex-row pb-4 gap-6 ">
             <div class="flex">
               <a href="#!">Passwort vergessen?</a>
             </div>
@@ -67,24 +63,20 @@
 
 <script setup>
 import axios from "axios";
-import {reactive, ref} from "vue";
+import {reactive} from "vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
-import {Button, Checkbox, FloatLabel, InputGroup, InputGroupAddon, InputText, Message, Password} from "primevue";
-import {useClientIDStore} from "@/stores/ClientIDStore.js";
-import {useTokenStore} from "@/stores/TokenStore.js";
+import {Button, FloatLabel, InputGroup, InputGroupAddon, InputText, Message, Password} from "primevue";
+import {useAuthStore} from "@/stores/AuthStore.js";
 
 const router = useRouter();
 const toast = useToast();
-const clientIDStore = useClientIDStore();
-const tokenStore = useTokenStore();
+const authStore = useAuthStore();
 
 const payload = reactive({
   email: '',
   password: '',
 });
-
-const rememberMe = ref(false);
 
 const resolver = ({values}) => {
   const errors = {};
@@ -115,15 +107,8 @@ async function submitlogin() {
       .then((response) => {
         if (response?.status === 200) {
           const {accessToken, refreshToken} = response.data;
-          tokenStore.accessToken = accessToken;
-          tokenStore.refreshToken = refreshToken;
-          tokenStore.setAccessToken();
-
-          if (rememberMe.value) {
-            clientIDStore.persistClientID();
-            tokenStore.persistToken();
-          }
-
+          authStore.accessToken = accessToken;
+          authStore.refreshToken = refreshToken;
           toast.add({severity: 'success', summary: 'Willkommen', detail: 'Anmeldung erfolgreich', life: 3000});
           router.back();
         }

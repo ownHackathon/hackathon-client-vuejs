@@ -1,6 +1,7 @@
 import '/node_modules/primeflex/primeflex.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import '@/assets/reset.css'
 import '@/assets/main.css'
@@ -56,6 +57,8 @@ const stylePreset = definePreset(Lara, {
   }
 });
 
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 app.use(PrimeVue, {
   theme: {
     preset: stylePreset,
@@ -67,7 +70,7 @@ app.use(PrimeVue, {
   }
 });
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(ToastService)
 // eslint-disable-next-line vue/multi-word-component-names
