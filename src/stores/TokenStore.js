@@ -40,11 +40,11 @@ export const useTokenStore = defineStore('tokenStore', () => {
   }
 
   function removeToken() {
+    accessToken.value = '';
+    refreshToken.value = '';
     localStorage.removeItem('token');
     sessionStorage.removeItem('accessToken');
-    accessToken.value = '';
-
-    refreshToken.value = '';
+    sessionStorage.clear();
   }
 
   return {setAccessToken, accessToken, refreshToken, persistToken, getAccessToken, getRefreshToken, removeToken};

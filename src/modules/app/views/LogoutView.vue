@@ -1,44 +1,45 @@
 <template>
-  <div>
+  <div class="flex justify-content-center p-5">
+    <ProgressSpinner /> <!-- Zeige einen Ladekreis während des Logouts -->
     <Toast/>
   </div>
 </template>
+
 <script setup>
-import {useRouter} from "vue-router";
-import {useClientIDStore} from "@/stores/ClientIDStore.js";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useClientIDStore } from "@/stores/ClientIDStore.js";
+import { useTokenStore } from "@/stores/TokenStore.js";
+import { useToast } from "primevue/usetoast";
 import axios from "axios";
-import {useToast} from "primevue/usetoast";
-import {useTokenStore} from "@/stores/TokenStore.js";
+import ProgressSpinner from 'primevue/progressspinner';
 
 const router = useRouter();
 const clientIDStore = useClientIDStore();
 const tokenStore = useTokenStore();
 const toast = useToast();
 
-await axios
-    .get("/api/account/logout")
-    .then((response) => {
-      if (response?.status === 200) {
-        clientIDStore.removeClientID();
-        clientIDStore.setClientID();
-        tokenStore.removeToken();
+onMounted(async () => {
+  try {
+    const response = await axios.get("/api/account/logout");
 
-        axios.defaults.headers.common['x-ident'] = `${clientIDStore.getClientID()}`;
+    if (response?.status === 200) {
+      toast.add({severity: 'success', summary: 'Abgemeldet', detail: 'Bis bald!', life: 3000});
+    }
+  } catch (error) {
+    console.error("Logout API Fehler:", error);
+    // Wir machen trotzdem weiter, um den lokalen Speicher zu säubern
+  } finally {
+    // IMMER lokal aufräumen, egal ob die API Erfolg hatte oder nicht
+    tokenStore.removeToken();
+    clientIDStore.removeClientID();
+    clientIDStore.setClientID();
 
-        toast.add({severity: 'success', summary: 'Bye bye', detail: 'Abmeldung erfolgreich', life: 3000});
-        router.push({ name: 'app_home' });
-      }
-    })
-    .catch(() => {
-        clientIDStore.removeClientID();
-        clientIDStore.setClientID();
-        tokenStore.removeToken();
-        toast.add({severity: 'error', summary: 'Fehler bei der Abmeldung', detail: 'Unbekannter Fehler', life: 5000});
-      }
-    );
+    // Ident-Header für künftige anonyme Anfragen setzen
+    axios.defaults.headers.common['x-ident'] = `${clientIDStore.getClientID()}`;
 
-router.push({name: 'app_home'});
+    // WICHTIG: Zu Login weiterleiten, nicht zu Home (Vermeidung von Auth-Loop)
+    router.push({ name: 'app_login' });
+  }
+});
 </script>
-<style scoped>
-
-</style>
