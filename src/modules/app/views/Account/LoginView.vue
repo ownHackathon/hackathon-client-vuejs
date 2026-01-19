@@ -2,12 +2,12 @@
   <div class="flex justify-content-center login-form-container">
     <div class="flex justify-content-center login-form-content">
       <div class="login-form-content-inner">
-        <Toast/>
-
         <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
           <div class=" text-white text-center">
             <h1>Willkommen</h1>
-            <p>Noch keinen Account? <a href="#!">Hier anlegen!</a></p>
+            <p>Noch keinen Account?
+              <router-link :to="{name: 'app_register'}">Hier anlegen!</router-link>
+            </p>
           </div>
           <div class="pb-4">
             <InputGroup>
@@ -68,10 +68,12 @@ import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import {Button, FloatLabel, InputGroup, InputGroupAddon, InputText, Message, Password} from "primevue";
 import {useAuthStore} from "@/stores/AuthStore.js";
+import {useValidator} from "@/utils/validator/validator.js";
 
 const router = useRouter();
 const toast = useToast();
 const authStore = useAuthStore();
+const validate = useValidator();
 
 const payload = reactive({
   email: '',
@@ -80,14 +82,13 @@ const payload = reactive({
 
 const resolver = ({values}) => {
   const errors = {};
-  const regex = /^[^@]+@\w+(\.\w+)+\w$/;
 
-  if (!values.email || !regex.test(values.email)) {
+  if (!validate.email(values.email)) {
     errors.email = [{message: 'Bitte eine gültige E-Mail eingeben.'}];
   }
 
-  if (!values.password || (values.password.length < 6 || values.password.length > 255)) {
-    errors.password = [{message: 'Bitte das aktuell gültige Password eingeben.'}];
+  if (!validate.password(values.password)) {
+    errors.password = [{message: 'Bitte ein gültiges Passwort eingeben.'}];
   }
 
   return {

@@ -12,6 +12,7 @@
   RewriteRule ^(.*)\.(js|css|html|svg)$ $1.$2.gz [L]
 
   # Setze die korrekten Header, damit der Browser weiß, was er da hat
+  AddType application/x-brotli .br
   AddType text/javascript .js.br
   AddType application/javascript .js.br
   AddType application/json .json.br
@@ -20,6 +21,7 @@
   AddType text/css .css.br
   AddEncoding br .br
 
+  AddType application/x-gzip .gz
   AddType text/javascript .js.gz
   AddType application/javascript .js.gz
   AddType application/json .json.gz
@@ -37,6 +39,22 @@
   <FilesMatch "\.svg\.br$">
     ForceType image/svg+xml
   </FilesMatch>
+  <FilesMatch "\.html\.br$">
+      ForceType text/html
+  </FilesMatch>
+
+  <FilesMatch "\.js\.gz$">
+      ForceType application/javascript
+    </FilesMatch>
+    <FilesMatch "\.css\.gz$">
+      ForceType text/css
+    </FilesMatch>
+    <FilesMatch "\.svg\.gz$">
+      ForceType image/svg+xml
+    </FilesMatch>
+    <FilesMatch "\.html\.gz$">
+        ForceType text/html
+    </FilesMatch>
 
   RewriteBase /
 

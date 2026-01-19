@@ -1,29 +1,60 @@
 <template>
-  <nav>
-    <div class="card">
-      <Menubar :model="items">
-        <template #start>
-          <div class="">
-            <router-link :to="{name: 'app_home'}" class="nav-link">ownHackathon</router-link>
-          </div>
-        </template>
-        <template #end>
-          <div class="card flex justify-center">
-            <SplitButton icon="pi pi-user" :model="account" @click="save" text/>
+  <nav class="w-full">
+    <Toolbar class="flex-nowrap border-none overflow-hidden w-full">
+      <template #start>
+        <div class="flex items-center gap-2">
+          <Button
+              as="router-link"
+              :to="{name: 'app_home'}"
+              class="p-button-sm"
+              link>
+            <img class="my-custom-logo"/>
+            <span class=" hidden md:block ml-2">ownHackathon</span>
+          </Button>
 
-          </div>
-        </template>
-      </Menubar>
-    </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <SplitButton :model="items"  text class="p-button-sm"><span class="">Menü</span></SplitButton>
+        </div>
+
+      </template>
+
+      <template #center>
+        <div class="flex-grow-1"></div>
+      </template>
+
+      <template #end>
+        <div class="flex items-center gap-1">
+          <Button
+              v-if="!authStore.isLoggedIn"
+              as="router-link"
+              :to="{name: 'app_register'}"
+              class="p-button-sm"
+              link
+              appendTo="body"
+              title="Account anlegen"
+          >
+            <i class="pi pi-user-plus"></i>
+            <span class="hidden md:block ml-2">Registrieren</span></Button>
+          <SplitButton
+              icon="pi pi-user"
+              :model="account"
+              @click="user_profile"
+              text
+              class="p-button-sm"
+              appendTo="body"
+          />
+        </div>
+      </template>
+    </Toolbar>
   </nav>
 </template>
 
 <script setup>
 import {computed, ref} from "vue";
-import Menubar from 'primevue/menubar';
 import SplitButton from 'primevue/splitbutton';
 import {useRouter} from "vue-router";
-import {useAuthStore } from "@/stores/AuthStore.js";
+import {useAuthStore} from "@/stores/AuthStore.js";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -45,24 +76,25 @@ const account = computed(() => {
         label: 'Ausloggen',
         icon: 'pi pi-sign-out', // Passendes Icon für Logout
         command: () => {
-          router.push({ name: 'app_logout' })
+          router.push({name: 'app_logout'});
         }
       }
-    ]
+    ];
   } else {
-  return [
-    {
-      label: 'Anmelden',
-      icon: 'pi pi-lock',
-      command: () => {
-        router.push({ name: 'app_login' })
+    return [
+      {
+        label: 'Anmelden',
+        icon: 'pi pi-lock',
+        command: () => {
+          router.push({name: 'app_login'});
+        }
       }
-    }
-  ]}
+    ];
+  }
 });
 
-const save = () => {
-  router.push({name: 'app_login'})
+const user_profile = () => {
+  router.push({name: 'app_login'});
 };
 </script>
 
@@ -76,5 +108,12 @@ const save = () => {
 .nav-link:hover, .nav-link:active {
   color: white;
   text-decoration-thickness: 2px;
+}
+
+.my-custom-logo {
+  content: url('@/assets/image/hackathon_logo.png');
+  width: 32px;
+  height: 32px;
+  display: block;
 }
 </style>

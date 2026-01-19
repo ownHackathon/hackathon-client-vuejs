@@ -20,3 +20,21 @@ a:hover, a:active {
     color: #92b4f2;
 
 }
+
+/* Media Query für Mobilgeräte (bis ca. 768px) */
+@media screen and (max-width: 768px) {
+    /* Das Haupt-Container Element des Toasts */
+    .p-toast {
+        width: auto !important; /* Verhindert 100% Breite */
+        left: auto !important;  /* Hebt die Links-Verankerung auf */
+        right: 20px !important; /* Abstand vom rechten Rand */
+        top: 20px !important;   /* Abstand von oben */
+        min-width: 250px;       /* Optionale Mindestbreite */
+        max-width: 90vw;        /* Verhindert, dass er über den linken Rand hinausragt */
+    }
+
+    /* Die eigentliche Nachricht im Toast */
+    .p-toast-message {
+        margin-bottom: 10px;    /* Abstand zwischen mehreren Meldungen */
+    }
+}

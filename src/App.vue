@@ -4,12 +4,14 @@ import {useClientIDStore} from '@/stores/ClientIDStore.js';
 import axios from "axios";
 
 const clientIDStore = useClientIDStore();
-clientIDStore.regenerateClientID();
+if (!clientIDStore.hasClientID) {
+  clientIDStore.regenerateClientID();
+}
 axios.defaults.headers.common['x-ident'] = clientIDStore.uniqueClientID;
 </script>
 
 <template>
-  <Toast/>
+  <Toast position="top-right" />
 
   <RouterView/>
 </template>

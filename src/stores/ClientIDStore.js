@@ -1,16 +1,20 @@
 import {defineStore} from "pinia";
 import {v7} from "uuid";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 
 export const useClientIDStore = defineStore('clientID', () => {
   const uniqueClientID = ref('');
 
+  const hasClientID = computed(() => {
+    return uniqueClientID.value !== null;
+  })
+
   function regenerateClientID() {
     uniqueClientID.value = v7();
   }
 
-  return {uniqueClientID, regenerateClientID};
+  return {uniqueClientID, regenerateClientID, hasClientID};
 }, {
   persist: {
     key: 'identify',

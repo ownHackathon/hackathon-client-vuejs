@@ -1,5 +1,5 @@
 import {fileURLToPath, URL} from 'node:url';
-import {compression, defineAlgorithm} from 'vite-plugin-compression2';
+import {compression} from 'vite-plugin-compression2';
 import Components from 'unplugin-vue-components/vite';
 import {PrimeVueResolver} from '@primevue/auto-import-resolver';
 import {defineConfig} from 'vite';
@@ -20,7 +20,6 @@ export default defineConfig({
       algorithms: [
         'gzip',
         'brotliCompress',
-        defineAlgorithm('deflate', {level: 9})
       ],
     }),
     Components({

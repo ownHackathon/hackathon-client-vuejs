@@ -18,18 +18,24 @@ const router = createRouter({
               component: () => import('@app/views/HomeView.vue')
             },
             {
+              path: 'register',
+              name: 'app_register',
+              component: () => import('@/modules/app/views/Account/RegisterView.vue'),
+              meta: {guestOnly: true}
+            },
+            {
               path: 'login',
               name: 'app_login',
-              component: () => import('@app/views/LoginView.vue'),
-              meta: { guestOnly: true }
+              component: () => import('@/modules/app/views/Account/LoginView.vue'),
+              meta: {guestOnly: true}
             },
             {
               path: 'logout',
               name: 'app_logout',
-              component: () => import('@app/views/LogoutView.vue'),
+              component: () => import('@/modules/app/views/Account/LogoutView.vue'),
               beforeEnter: (to, from, next) => {
                 if (from.name === 'app_login') {
-                  next({ name: 'app_home' });
+                  next({name: 'app_home'});
                 } else {
                   next();
                 }
@@ -46,6 +52,28 @@ const router = createRouter({
               component: () => import('@app/views/404NotFoundView.vue'),
             },
           ]
+        },
+        {
+          component: () => import('@app/components/AppView.vue'),
+          path: '/external',
+          children: [
+            {
+              path: 'github',
+              name: 'external_github',
+              beforeEnter(to, from, next) {
+                window.open('https://github.com/ownHackathon', '_blank');
+                next(false);
+              }
+            },
+            {
+              path: 'discord',
+              name: 'external_discord',
+              beforeEnter(to, from, next) {
+                window.open('https://discord.gg/uzqB4YmdTy', '_blank');
+                next(false);
+              }
+            }
+          ]
         }
       ]
     }
@@ -55,11 +83,11 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-    return next({ name: 'app_login' });
+    return next({name: 'app_login'});
   }
 
   if (to.meta.guestOnly && authStore.isLoggedIn) {
-    return next({ name: 'app_home' });
+    return next({name: 'app_home'});
   }
 
   next();
