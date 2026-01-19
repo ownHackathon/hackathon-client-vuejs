@@ -53,13 +53,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-  const isAuthenticated = !!authStore.accessToken;
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     return next({ name: 'app_login' });
   }
 
-  if (to.meta.guestOnly && isAuthenticated) {
+  if (to.meta.guestOnly && authStore.isLoggedIn) {
     return next({ name: 'app_home' });
   }
 

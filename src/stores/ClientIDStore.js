@@ -9,16 +9,18 @@ export const useClientIDStore = defineStore('clientID', () => {
   function regenerateClientID() {
     uniqueClientID.value = v7();
   }
+
   return {uniqueClientID, regenerateClientID};
 }, {
   persist: {
     key: 'identify',
     serializer: {
       serialize: (state) => {
-        return btoa(JSON.stringify(state)); // Wandelt Objekt in Base64-String um
+        return btoa(JSON.stringify(state));
       },
       deserialize: (value) => {
-        return JSON.parse(atob(value)); // Wandelt Base64-String zurück in Objekt
+        return JSON.parse(atob(value));
       }
-    }}
+    }
+  }
 });

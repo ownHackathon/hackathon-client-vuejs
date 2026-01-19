@@ -1,5 +1,5 @@
 import axios from "axios";
-import router from "@/router";
+import router from "@/utils/router/index.js";
 import {useAuthStore} from "@/stores/AuthStore.js";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;

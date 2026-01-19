@@ -1,5 +1,43 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Serviere Brotli, wenn vorhanden und vom Browser unterstützt
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}.br -f
+  RewriteRule ^(.*)\.(js|css|html|svg)$ $1.$2.br [L]
+
+  # Serviere Gzip als Fallback
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+  RewriteRule ^(.*)\.(js|css|html|svg)$ $1.$2.gz [L]
+
+  # Setze die korrekten Header, damit der Browser weiß, was er da hat
+  AddType text/javascript .js.br
+  AddType application/javascript .js.br
+  AddType application/json .json.br
+  AddType image/svg+xml .svg.br
+  AddType text/html .html.br
+  AddType text/css .css.br
+  AddEncoding br .br
+
+  AddType text/javascript .js.gz
+  AddType application/javascript .js.gz
+  AddType application/json .json.gz
+  AddType image/svg+xml .svg.gz
+  AddType text/html .html.gz
+  AddType text/css .css.gz
+  AddEncoding gzip .gz
+
+  <FilesMatch "\.js\.br$">
+    ForceType application/javascript
+  </FilesMatch>
+  <FilesMatch "\.css\.br$">
+    ForceType text/css
+  </FilesMatch>
+  <FilesMatch "\.svg\.br$">
+    ForceType image/svg+xml
+  </FilesMatch>
+
   RewriteBase /
 
   # 1. Ausnahme: API-Aufrufe direkt durchlassen

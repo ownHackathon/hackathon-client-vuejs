@@ -19,10 +19,10 @@ export const useAuthStore = defineStore('authStore', () => {
         key: 'user_session',
         serializer: {
           serialize: (state) => {
-            return btoa(JSON.stringify(state)); // Wandelt Objekt in Base64-String um
+            return btoa(JSON.stringify(state));
           },
           deserialize: (value) => {
-            return JSON.parse(atob(value)); // Wandelt Base64-String zurück in Objekt
+            return JSON.parse(atob(value));
           }
         }
       }
