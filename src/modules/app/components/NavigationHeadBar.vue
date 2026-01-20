@@ -14,7 +14,15 @@
 
         </div>
         <div class="flex items-center gap-2">
-          <SplitButton :model="items"  text class="p-button-sm"><span class="">Menü</span></SplitButton>
+          <SplitButton
+              :model="items"
+              text
+              class="p-button-sm"
+          >
+            <span class="">
+              Menü
+            </span>
+          </SplitButton>
         </div>
 
       </template>
@@ -43,6 +51,7 @@
               text
               class="p-button-sm"
               appendTo="body"
+              :menuButtonProps="{ 'style': 'width: 20px' }"
           />
         </div>
       </template>
