@@ -10,5 +10,9 @@ export const useValidator = () => {
     return password && (password.length > 5 && password.length < 256);
   };
 
-  return {email, password, useValidator};
+  const accountName = (account) => {
+    return account && (account.length > 2 && account.length < 65);
+  };
+
+  return {email, password, accountName, useValidator};
 };

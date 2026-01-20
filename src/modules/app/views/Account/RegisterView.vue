@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-content-center login-form-container p-4">
-    <div class="flex justify-content-center login-form-content">
-      <div v-if="!register" class="login-form-content-inner">
+  <div class="flex justify-content-center register-form-container p-4">
+    <div class="flex justify-content-center register-form-content">
+      <div v-if="!register" class="register-form-content-inner">
 
         <div class=" text-white text-center">
           <h1>Registrieren</h1>
@@ -82,11 +82,11 @@ async function submitRegister() {
 </script>
 
 <style scoped>
-.login-form-container {
+.register-form-container {
   width: 100%;
 }
 
-.login-form-content {
+.register-form-content {
   margin-top: 10px;
   padding: 10px;
   max-width: 95%;
@@ -96,7 +96,7 @@ async function submitRegister() {
   border: gray solid thin;
 }
 
-.login-form-content-inner {
+.register-form-content-inner {
   padding: 20px;
 }
 </style>

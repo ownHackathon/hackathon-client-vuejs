@@ -42,6 +42,13 @@ const router = createRouter({
               }
             },
             {
+              path: 'account/activation/:token',
+              name: 'app_account_activation',
+              component: () => import('@/modules/app/views/Account/ActivationView.vue'),
+              props: true,
+              meta: {guestOnly: true}
+            },
+            {
               path: 'test',
               name: 'app_test',
               component: () => import('@app/views/TestView.vue')
