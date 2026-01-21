@@ -55,6 +55,13 @@ const router = createRouter({
               meta: {guestOnly: true}
             },
             {
+              path: 'account/password/:token',
+              name: 'app_account_password',
+              component: () => import('@/modules/app/views/Account/PasswordView.vue'),
+              props: true,
+              meta: {guestOnly: true}
+            },
+            {
               path: 'test',
               name: 'app_test',
               component: () => import('@app/views/TestView.vue')
