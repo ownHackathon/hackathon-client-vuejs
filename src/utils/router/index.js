@@ -9,10 +9,6 @@ const router = createRouter({
           path: '/app',
           children: [
             {
-              path: '/',
-              redirect: '/app'
-            },
-            {
               path: '',
               name: 'app_home',
               component: () => import('@app/views/HomeView.vue')
@@ -42,39 +38,46 @@ const router = createRouter({
               }
             },
             {
-              path: 'account/activation/:token',
-              name: 'app_account_activation',
-              component: () => import('@/modules/app/views/Account/ActivationView.vue'),
-              props: true,
-              meta: {guestOnly: true}
-            },
-            {
-              path: 'account/password/forgotten',
-              name: 'app_account_password_forgotten',
-              component: () => import('@/modules/app/views/Account/PasswordForgottenView.vue'),
-              meta: {guestOnly: true}
-            },
-            {
-              path: 'account/password/:token',
-              name: 'app_account_password',
-              component: () => import('@/modules/app/views/Account/PasswordView.vue'),
-              props: true,
-              meta: {guestOnly: true}
+              path: 'account',
+              meta: {guestOnly: true},
+              children: [
+                {
+                  path: 'activation/:token',
+                  name: 'app_account_activation',
+                  component: () => import('@/modules/app/views/Account/ActivationView.vue'),
+                  props: true,
+                },
+                {
+                  path: 'password/forgotten',
+                  name: 'app_account_password_forgotten',
+                  component: () => import('@/modules/app/views/Account/PasswordForgottenView.vue'),
+                },
+                {
+                  path: 'password/:token',
+                  name: 'app_account_password',
+                  component: () => import('@/modules/app/views/Account/PasswordView.vue'),
+                  props: true,
+                },
+              ]
             },
             {
               path: 'test',
               name: 'app_test',
               component: () => import('@app/views/TestView.vue')
             },
-            {
-              path: '/:pathMatch(.*)*',
-              name: 'app_path_not_found',
-              component: () => import('@app/views/404NotFoundView.vue'),
-            },
+
           ]
         },
         {
-          component: () => import('@app/components/AppView.vue'),
+          path: '/',
+          redirect: 'app'
+        },
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'app_path_not_found',
+          component: () => import('@app/views/404NotFoundView.vue'),
+        },
+        {
           path: '/external',
           children: [
             {
