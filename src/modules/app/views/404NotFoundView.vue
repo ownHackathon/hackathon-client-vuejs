@@ -14,21 +14,21 @@
           <!-- 1. Wort: Ganz links -->
           <div class="w-full text-left">
             <h1 class="staircase-text m-0">
-              Seite
+              Ooops
             </h1>
           </div>
 
           <!-- 2. Wort: Mitte (Primary Color für den Fokus) -->
           <div class="w-full text-center text-primary">
             <h1 class="staircase-text m-0">
-              Nicht
+              404
             </h1>
           </div>
 
           <!-- 3. Wort: Ganz rechts -->
           <div class="w-full text-right text-900 dark:text-0">
             <h1 class="staircase-text m-0">
-              Gefunden
+              Awkward
             </h1>
           </div>
         </div>
@@ -36,8 +36,8 @@
         <!-- Infotext & CTA: Hier bringen wir die seriöse Note rein -->
         <div class="mt-6 flex flex-column align-items-center text-center">
           <p class="text-xl md:text-2xl text-700 dark:text-300 max-w-30rem line-height-3">
-            Eigentlich sind wir für unsere Präzision bekannt. Dass dieser Pfad ins Leere führt,
-            ist uns fast ein wenig unangenehm. Lassen Sie uns diesen Umweg gemeinsam beenden.
+            Die von Ihnen angeforderte Seite konnte unter dieser Adresse nicht gefunden werden.
+            Dies kann auf eine Verschiebung der Inhalte oder einen veralteten Link zurückzuführen sein.
           </p>
 
           <div class="flex flex-wrap gap-3 mt-4">
