@@ -93,17 +93,17 @@ const toggleAccountMenu = (event) => {
 
 const account = computed(() => [
   {
-    label: 'Account',
+    label: 'Profil',
   },
   {
     label: 'Anmelden',
-    icon: 'pi pi-lock',
+    icon: 'pi pi-sign-in',
     visible: !authStore.isLoggedIn,
     command: () => router.push({name: 'app_login'}),
   },
   {
     label: 'Registrieren',
-    icon: 'pi pi-sign-out',
+    icon: 'pi pi-user-plus',
     visible: !authStore.isLoggedIn,
     command: () => router.push({name: 'app_register'}),
   },
