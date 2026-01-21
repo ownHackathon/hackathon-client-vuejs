@@ -21,7 +21,7 @@
       </template>
 
       <template #end>
-        <div class="flex items-center gap-2">
+        <div v-if="authStore.isLoggedIn" class="flex items-center gap-2">
           <Button
               type="button"
               @click="toggleAccountMenu"
@@ -43,6 +43,24 @@
               </a>
             </template>
           </Menu>
+        </div>
+        <div v-else class="flex items-center gap-2">
+          <Button
+              as="router-link"
+              label="Registrieren"
+              variant="outlined"
+              severity="primary"
+              :to="{name: 'app_register'}"
+              size="small"
+          />
+          <Button
+              as="router-link"
+              label="Anmelden"
+              variant="outlined"
+              severity="primary"
+              :to="{name: 'app_login'}"
+              size="small"
+          />
         </div>
       </template>
     </Menubar>
@@ -94,6 +112,7 @@ const toggleAccountMenu = (event) => {
 const account = computed(() => [
   {
     label: 'Profil',
+    icon: 'pi pi-user',
   },
   {
     label: 'Anmelden',
@@ -106,6 +125,16 @@ const account = computed(() => [
     icon: 'pi pi-user-plus',
     visible: !authStore.isLoggedIn,
     command: () => router.push({name: 'app_register'}),
+  },
+  {
+    visible: authStore.isLoggedIn,
+    separator: true,
+  },
+  {
+    label: 'Einstellungen',
+    icon: 'pi pi-cog',
+    visible: authStore.isLoggedIn,
+
   },
   {
     visible: authStore.isLoggedIn,
