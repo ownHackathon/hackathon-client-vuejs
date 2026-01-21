@@ -7,10 +7,15 @@
           <p>Bitte geben Sie Ihre E-Mail Adresse ein.</p>
         </div>
         <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <FloatLabel variant="on">
-            <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
-            <label for="email">E-Mail</label>
-          </FloatLabel>
+          <InputGroup>
+            <InputGroupAddon>
+              <i class="pi pi-at"></i>
+            </InputGroupAddon>
+            <FloatLabel variant="on">
+              <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
+              <label for="email">E-Mail</label>
+            </FloatLabel>
+          </InputGroup>
           <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
           <div class="flex pt-4 gap-6 ">
             <Button type="submit" class="submitButtonWith" label="Passwort anfordern" icon="pi pi-user"/>
