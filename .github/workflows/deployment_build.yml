@@ -1,4 +1,4 @@
-name: Development vuejs Client Deployment
+name: Development vuejs Client Build
 on:
   push:
     branches: [ "master" ]
