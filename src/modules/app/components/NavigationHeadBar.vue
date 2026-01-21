@@ -75,28 +75,52 @@ import {useAuthStore} from "@/stores/AuthStore.js";
 const router = useRouter();
 const authStore = useAuthStore();
 
-const items = ref([
+const items = computed(() => [
   {
-    label: 'Menü',
+    label: "Entdecken",
+    visible: !authStore.isLoggedIn,
+  },
+  {
+    label: "Ruhmeshalle",
+    visible: !authStore.isLoggedIn,
+  },
+  {
+    label: "Anleitung",
+    visible: !authStore.isLoggedIn,
+  },
+  {
+    label: "Dashboard",
+    visible: authStore.isLoggedIn,
+  },
+  {
+    label: 'Meine Events',
     icon: 'pi pi-at',
+    visible: authStore.isLoggedIn,
     items: [
       {
-        label: 'Core',
-        icon: 'pi pi-bolt',
-        shortcut: '⌘+S'
+        label: 'Anstehende',
       },
       {
-        label: 'Blocks',
-        icon: 'pi pi-server',
-        shortcut: '⌘+B'
+        label: 'Aktiv',
       },
       {
-        separator: true
+        label: 'Vergangende',
+      }
+    ]
+  },
+  {
+    label: 'Organisation',
+    icon: 'pi pi-at',
+    visible: authStore.isLoggedIn,
+    items: [
+      {
+        label: 'Alle',
       },
       {
-        label: 'UI Kit',
-        icon: 'pi pi-pencil',
-        shortcut: '⌘+U'
+        label: 'Beigetreten',
+      },
+      {
+        label: 'Meine',
       }
     ]
   }
