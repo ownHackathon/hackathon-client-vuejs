@@ -11,7 +11,7 @@ export default defineConfig({
   publicDir: 'static-assets',
   build: {
     outDir: 'public',
-    sourcemap: 'true',
+    sourcemap: 'hidden',
     emptyOutDir: true,
   },
   plugins: [

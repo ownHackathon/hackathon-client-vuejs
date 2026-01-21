@@ -1,67 +1,56 @@
 <template>
   <nav class="w-full">
-    <Toolbar class="flex-nowrap border-none overflow-hidden w-full">
+    <Menubar :model="items">
       <template #start>
-        <div class="flex items-center gap-2">
-          <Button
-              as="router-link"
-              :to="{name: 'app_home'}"
-              class="p-button-sm"
-              link>
-            <img class="my-custom-logo"/>
-            <span class=" hidden md:block ml-2">ownHackathon</span>
-          </Button>
-
-        </div>
-        <div class="flex items-center gap-2">
-          <SplitButton
-              :model="items"
-              text
-              class="p-button-sm"
-          >
-            <span class="">
-              Menü
-            </span>
-          </SplitButton>
-        </div>
-
+        <Button
+            as="router-link"
+            :to="{name: 'app_home'}"
+            class="p-button-sm"
+            link>
+          <img class="my-custom-logo"/>
+          <span class=" hidden md:block ml-2">ownHackathon</span>
+        </Button>
       </template>
-
-      <template #center>
-        <div class="flex-grow-1"></div>
+      <template #item="{ item, props, hasSubmenu, root }">
+        <a v-ripple class="flex items-center" v-bind="props.action">
+          <span>{{ item.label }}</span>
+          <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge"/>
+          <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+          <i v-if="hasSubmenu" :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
+        </a>
       </template>
 
       <template #end>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-2">
           <Button
-              v-if="!authStore.isLoggedIn"
-              as="router-link"
-              :to="{name: 'app_register'}"
-              class="p-button-sm"
-              link
-              appendTo="body"
-              title="Account anlegen"
-          >
-            <i class="pi pi-user-plus"></i>
-            <span class="hidden md:block ml-2">Registrieren</span></Button>
-          <SplitButton
-              icon="pi pi-user"
-              :model="account"
-              @click="user_profile"
+              type="button"
+              @click="toggleAccountMenu"
+              aria-haspopup="true"
+              aria-controls="overlay_menu"
+              rounded
               text
-              class="p-button-sm"
-              appendTo="body"
-              :menuButtonProps="{ 'style': 'width: 20px' }"
-          />
+              severity="secondary"
+          >
+            <i class="pi pi-user"></i><i class="pi pi-angle-down"></i>
+          </Button>
+
+          <!-- Das eigentliche Popup-Menü -->
+          <Menu ref="menu" id="overlay_menu" :model="account" :popup="true">
+            <template #item="{ item, props }">
+              <a v-ripple class="flex items-center" v-bind="props.action">
+                <span :class="item.icon"/>
+                <span class="ml-2">{{ item.label }}</span>
+              </a>
+            </template>
+          </Menu>
         </div>
       </template>
-    </Toolbar>
+    </Menubar>
   </nav>
 </template>
 
 <script setup>
 import {computed, ref} from "vue";
-import SplitButton from 'primevue/splitbutton';
 import {useRouter} from "vue-router";
 import {useAuthStore} from "@/stores/AuthStore.js";
 
@@ -70,41 +59,66 @@ const authStore = useAuthStore();
 
 const items = ref([
   {
-    label: 'Testeintrag',
-    icon: 'pi pi-spinner',
-    command: () => {
-      router.push({name: 'app_test'});
-    }
-  },
+    label: 'Menü',
+    icon: 'pi pi-at',
+    items: [
+      {
+        label: 'Core',
+        icon: 'pi pi-bolt',
+        shortcut: '⌘+S'
+      },
+      {
+        label: 'Blocks',
+        icon: 'pi pi-server',
+        shortcut: '⌘+B'
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'UI Kit',
+        icon: 'pi pi-pencil',
+        shortcut: '⌘+U'
+      }
+    ]
+  }
 ]);
 
-const account = computed(() => {
-  if (authStore.isLoggedIn) {
-    return [
-      {
-        label: 'Ausloggen',
-        icon: 'pi pi-sign-out', // Passendes Icon für Logout
-        command: () => {
-          router.push({name: 'app_logout'});
-        }
-      }
-    ];
-  } else {
-    return [
-      {
-        label: 'Anmelden',
-        icon: 'pi pi-lock',
-        command: () => {
-          router.push({name: 'app_login'});
-        }
-      }
-    ];
-  }
-});
 
-const user_profile = () => {
-  router.push({name: 'app_login'});
+const menu = ref(); // Referenz für das Popup-Menü
+
+const toggleAccountMenu = (event) => {
+  menu.value.toggle(event);
 };
+
+const account = computed(() => [
+  {
+    label: 'Account',
+  },
+  {
+    label: 'Anmelden',
+    icon: 'pi pi-lock',
+    visible: !authStore.isLoggedIn,
+    command: () => router.push({name: 'app_login'}),
+  },
+  {
+    label: 'Registrieren',
+    icon: 'pi pi-sign-out',
+    visible: !authStore.isLoggedIn,
+    command: () => router.push({name: 'app_register'}),
+  },
+  {
+    visible: authStore.isLoggedIn,
+    separator: true,
+  },
+  {
+    label: 'Abmelden',
+    icon: 'pi pi-sign-out',
+    visible: authStore.isLoggedIn,
+    command: () => router.push({name: 'app_logout'}),
+  }
+]);
+
 </script>
 
 <style scoped>

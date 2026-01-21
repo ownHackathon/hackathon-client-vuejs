@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-content-center login-form-container">
-    <div class="flex justify-content-center login-form-content">
-      <div class="login-form-content-inner">
+  <div class="flex justify-content-center form-container">
+    <div class="flex justify-content-center form-content">
+      <div class="form-content-inner">
         <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
           <div class=" text-white text-center">
             <h1>Willkommen</h1>
@@ -49,7 +49,7 @@
           </div>
           <div class="flex flex-row pb-4 gap-6 ">
             <div class="flex">
-              <a href="#!">Passwort vergessen?</a>
+              <router-link :to="{name: 'app_account_password_forgotten'}">Passwort vergessen?</router-link>
             </div>
           </div>
           <div>
@@ -132,23 +132,5 @@ async function submitlogin() {
 
 .submitButtonWith {
   width: 100%;
-}
-
-.login-form-container {
-  width: 100%;
-}
-
-.login-form-content {
-  margin-top: 10px;
-  padding: 10px;
-  max-width: 95%;
-  min-width: 25%;
-  background-color: #111827;
-  border-radius: 10px;
-  border: gray solid thin;
-}
-
-.login-form-content-inner {
-  padding: 20px;
 }
 </style>

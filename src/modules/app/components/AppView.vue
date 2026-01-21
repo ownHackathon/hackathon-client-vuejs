@@ -23,23 +23,12 @@ import {RouterView} from "vue-router";
 </template>
 
 <style scoped>
-.max-w-custom {
-  width: 100%;
-}
+
 .layout-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  /* Verhindert das horizontale Wackeln auf dem Handy */
-  overflow-x: hidden;
-  position: relative;
 }
 
 #app {

@@ -78,7 +78,8 @@ app.use(PrimeVue, {
       darkModeSelector: 'system',
       cssLayer: false
     },
-  }
+  },
+  ripple: false,
 })
 
 // Global Components

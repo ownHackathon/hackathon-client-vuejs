@@ -2,25 +2,18 @@
   <div class="flex justify-content-center form-container">
     <div class="flex justify-content-center form-content">
       <div v-if="!register" class="form-content-inner">
-
         <div class=" text-white text-center">
-          <h1>Registrieren</h1>
-          <p>Bitte eine gültige E-Mail Adresse für einen neuen Account angeben</p>
-          <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Sie müssen Zugriff auf diese haben!</p>
+          <h1>Passwort vergessen</h1>
+          <p>Bitte geben Sie Ihre E-Mail Adresse ein.</p>
         </div>
         <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-at"></i>
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
-              <label for="email">E-Mail</label>
-            </FloatLabel>
-          </InputGroup>
+          <FloatLabel variant="on">
+            <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
+            <label for="email">E-Mail</label>
+          </FloatLabel>
           <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
           <div class="flex pt-4 gap-6 ">
-            <Button type="submit" class="submitButtonWith" label="Registrieren" icon="pi pi-user"/>
+            <Button type="submit" class="submitButtonWith" label="Passwort anfordern" icon="pi pi-user"/>
           </div>
         </Form>
       </div>
@@ -67,7 +60,7 @@ const register = ref(false);
 
 async function submitRegister() {
   await axios
-      .post("/api/account", payload,)
+      .post("/api/account/password/forgotten", payload,)
       .then((response) => {
         if (response?.status === 200) {
           register.value = true;
@@ -77,9 +70,9 @@ async function submitRegister() {
       .catch((error) => {
             register.value = false;
             if (error?.response.status === 400 || error?.response.status === 401 || error?.response.status === 403) {
-              toast.add({severity: 'error', summary: 'Fehler bei der Registrierung', detail: 'Eingegebene Daten prüfen', life: 5000});
+              toast.add({severity: 'error', summary: 'Fehler bei der Verarbeitung', detail: 'Eingegebene Daten prüfen', life: 5000});
             } else {
-              toast.add({severity: 'error', summary: 'Fehler bei der Registrierung', detail: 'Unbekannter Fehler', life: 5000});
+              toast.add({severity: 'error', summary: 'Fehler bei der Verarbeitung', detail: 'Unbekannter Fehler', life: 5000});
             }
           }
       );

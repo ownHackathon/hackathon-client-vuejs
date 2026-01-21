@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-content-center activation-form-container p-4">
-    <div class="flex justify-content-center activation-form-content">
-      <div class="activation-form-content-inner">
+  <div class="flex justify-content-center form-container">
+    <div class="flex justify-content-center form-content">
+      <div class="form-content-inner">
         <div class=" text-white text-center">
           <h1>Account Aktivierung</h1>
           <p>Bitte geben Sie Ihren Account einen Namen und wählen Sie ein Passwort</p>
@@ -109,21 +109,11 @@ async function submitActivation() {
 </script>
 
 <style scoped>
-.activation-form-container {
+.inputTextWidth {
   width: 100%;
 }
 
-.activation-form-content {
-  margin-top: 10px;
-  padding: 10px;
-  max-width: 95%;
-  min-width: 25%;
-  background-color: #111827;
-  border-radius: 10px;
-  border: gray solid thin;
-}
-
-.activation-form-content-inner {
-  padding: 20px;
+.submitButtonWith {
+  width: 100%;
 }
 </style>

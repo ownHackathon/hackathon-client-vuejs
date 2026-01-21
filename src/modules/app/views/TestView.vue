@@ -1,6 +1,10 @@
 <template>
-  <div class="flex-grow-1 flex flex-column overflow-auto">
-    Test View
+  <div class="flex justify-content-center form-container">
+    <div class="flex justify-content-center form-content">
+      <div class="form-content-inner">
+
+      </div>
+    </div>
   </div>
 </template>
 

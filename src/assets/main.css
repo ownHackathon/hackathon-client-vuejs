@@ -3,7 +3,13 @@
     src: url(fonts/Lato-Regular.ttf);
 }
 
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* Verhindert das horizontale Wackeln auf dem Handy */
+    overflow-x: hidden;
+    position: relative;
     color: #94a3b8;
     background-color: #090d15;
     font-family: 'Lato Regular', sans-serif;
@@ -19,6 +25,12 @@ a:link, a:visited {
 a:hover, a:active {
     color: #92b4f2;
 
+}
+
+/* Sicherstellen, dass h1 sauber gerendert wird */
+h1 {
+    display: block;
+    font-family: inherit;
 }
 
 /* Media Query für Mobilgeräte (bis ca. 768px) */
@@ -37,4 +49,37 @@ a:hover, a:active {
     .p-toast-message {
         margin-bottom: 10px;    /* Abstand zwischen mehreren Meldungen */
     }
+}
+
+.staircase-text {
+    /* Fluid Typography:
+       3.2rem = Mindestgröße für Handy (ca. 51px), damit 'Möglichkeiten' nicht bricht.
+       12vw   = Skaliert perfekt mit der Breite des Browsers.
+       20rem  = Maximale Größe für 4K-Monitore (ca. 320px).
+    */
+    font-size: clamp(1.0rem, 10vw, 20rem);
+
+    /* Zeilenhöhe reduzieren für den kompakten Treppeneffekt */
+    line-height: 0.85;
+
+    /* Enger zusammenstehende Buchstaben */
+    letter-spacing: -0.05em;
+}
+
+.form-container {
+    width: 100%;
+}
+
+.form-content {
+    margin-top: 10px;
+    padding: 10px;
+    max-width: 95%;
+    min-width: 25%;
+    background-color: #111827;
+    border-radius: 10px;
+    border: gray solid thin;
+}
+
+.form-content-inner {
+    padding: 20px;
 }
