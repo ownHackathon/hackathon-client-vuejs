@@ -8,7 +8,7 @@
             class="p-button-sm"
             link>
           <img class="my-custom-logo"/>
-          <span class=" hidden md:block ml-2">ownHackathon</span>
+          <span v-if="!authStore.isLoggedIn" class=" hidden md:block ml-2">ownHackathon</span>
         </Button>
       </template>
       <template #item="{ item, props, hasSubmenu, root }">
@@ -21,28 +21,69 @@
       </template>
 
       <template #end>
-        <div v-if="authStore.isLoggedIn" class="flex items-center gap-2">
-          <Button
-              type="button"
-              @click="toggleAccountMenu"
-              aria-haspopup="true"
-              aria-controls="overlay_menu"
-              rounded
-              text
-              severity="secondary"
-          >
-            <i class="pi pi-user"></i><i class="pi pi-angle-down"></i>
-          </Button>
-
-          <!-- Das eigentliche Popup-Menü -->
-          <Menu ref="menu" id="overlay_menu" :model="account" :popup="true">
-            <template #item="{ item, props }">
-              <a v-ripple class="flex items-center" v-bind="props.action">
-                <span :class="item.icon"/>
-                <span class="ml-2">{{ item.label }}</span>
-              </a>
-            </template>
-          </Menu>
+        <div v-if="authStore.isLoggedIn" class="flex items-center">
+          <div class="flex items-center ">
+            <Button
+                type="button"
+                @click="toggleCreationMenu"
+                aria-haspopup="true"
+                aria-controls="overlay_creation_menu"
+                rounded
+                text
+                severity="secondary"
+            >
+              <i class="pi pi-plus-circle"></i><i class="pi pi-angle-down"></i>
+            </Button>
+            <Menu ref="creation_menu" id="overlay_creation_menu" :model="creation_menu_model" :popup="true">
+              <template #item="{ item, props }">
+                <a v-ripple class="flex items-center" v-bind="props.action">
+                  <span :class="item.icon"/>
+                  <span class="ml-2">{{ item.label }}</span>
+                </a>
+              </template>
+            </Menu>
+          </div>
+          <div class="flex items-center ">
+            <Button
+                type="button"
+                rounded
+                text
+                severity="secondary"
+            >
+              <i class="pi pi-envelope"></i>
+            </Button>
+          </div>
+          <div class="flex items-center ">
+            <Button
+                type="button"
+                rounded
+                text
+                severity="secondary"
+            >
+              <i class="pi pi-bell"></i>
+            </Button>
+          </div>
+          <div class="flex items-center ">
+            <Button
+                type="button"
+                @click="toggleAccountMenu"
+                aria-haspopup="true"
+                aria-controls="overlay_menu"
+                rounded
+                text
+                severity="secondary"
+            >
+              <i class="pi pi-user"></i><i class="pi pi-angle-down"></i>
+            </Button>
+            <Menu ref="menu" id="overlay_menu" :model="account" :popup="true">
+              <template #item="{ item, props }">
+                <a v-ripple class="flex items-center" v-bind="props.action">
+                  <span :class="item.icon"/>
+                  <span class="ml-2">{{ item.label }}</span>
+                </a>
+              </template>
+            </Menu>
+          </div>
         </div>
         <div v-else class="flex items-center gap-2">
           <Button
@@ -91,47 +132,39 @@ const items = computed(() => [
   {
     label: "Dashboard",
     visible: authStore.isLoggedIn,
+    command: () => router.push({name: 'app_dashboard'}),
   },
-  {
-    label: 'Meine Events',
-    icon: 'pi pi-at',
-    visible: authStore.isLoggedIn,
-    items: [
-      {
-        label: 'Anstehende',
-      },
-      {
-        label: 'Aktiv',
-      },
-      {
-        label: 'Vergangende',
-      }
-    ]
-  },
-  {
-    label: 'Organisation',
-    icon: 'pi pi-at',
-    visible: authStore.isLoggedIn,
-    items: [
-      {
-        label: 'Alle',
-      },
-      {
-        label: 'Beigetreten',
-      },
-      {
-        label: 'Meine',
-      }
-    ]
-  }
 ]);
 
 
-const menu = ref(); // Referenz für das Popup-Menü
+const menu = ref();
+const creation_menu = ref();
 
 const toggleAccountMenu = (event) => {
   menu.value.toggle(event);
 };
+
+const toggleCreationMenu = (event) => {
+  creation_menu.value.toggle(event);
+};
+
+const creation_menu_model = computed(() => [
+  {
+    label: 'Neuen Workspace',
+    icon: 'pi pi-plus',
+  },
+  {
+    label: 'Neues Event',
+    icon: 'pi pi-plus',
+  },
+  {
+    separator: true,
+  },
+  {
+    label: 'Neue Nachricht',
+    icon: 'pi pi-plus',
+  },
+]);
 
 const account = computed(() => [
   {
@@ -139,35 +172,33 @@ const account = computed(() => [
     icon: 'pi pi-user',
   },
   {
-    label: 'Anmelden',
-    icon: 'pi pi-sign-in',
-    visible: !authStore.isLoggedIn,
-    command: () => router.push({name: 'app_login'}),
+    separator: true,
   },
   {
-    label: 'Registrieren',
-    icon: 'pi pi-user-plus',
-    visible: !authStore.isLoggedIn,
-    command: () => router.push({name: 'app_register'}),
+    label: 'Events',
+    icon: 'pi pi-cog',
   },
   {
-    visible: authStore.isLoggedIn,
+    label: 'Workspace',
+    icon: 'pi pi-cog',
+  },
+  {
+    label: 'Favoriten',
+    icon: 'pi pi-cog',
+  },
+  {
     separator: true,
   },
   {
     label: 'Einstellungen',
     icon: 'pi pi-cog',
-    visible: authStore.isLoggedIn,
-
   },
   {
-    visible: authStore.isLoggedIn,
     separator: true,
   },
   {
     label: 'Abmelden',
     icon: 'pi pi-sign-out',
-    visible: authStore.isLoggedIn,
     command: () => router.push({name: 'app_logout'}),
   }
 ]);

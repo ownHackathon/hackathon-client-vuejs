@@ -14,6 +14,12 @@ const router = createRouter({
               component: () => import('@app/views/HomeView.vue')
             },
             {
+              path: 'dashboard',
+              name: 'app_dashboard',
+              component: () => import('@app/views/DashboardView.vue'),
+              meta: { requiresAuth: true }
+            },
+            {
               path: 'register',
               name: 'app_register',
               component: () => import('@/modules/app/views/Account/RegisterView.vue'),
