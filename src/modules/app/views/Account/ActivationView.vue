@@ -91,7 +91,7 @@ async function submitActivation() {
   await axios
       .post("/api/account/activation/" + props.token, payload,)
       .then((response) => {
-            if (response?.status === 200) {
+            if (response?.status === 201) {
               toast.add({severity: 'success', summary: 'Erfolg', detail: 'Account wurde erfolgreich erstellt', life: 3000});
               router.push({name: 'app_login'});
             }

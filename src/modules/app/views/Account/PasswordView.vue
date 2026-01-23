@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-content-center form-container">
     <div class="flex justify-content-center form-content">
-      <div v-if="!register" class="form-content-inner">
+      <div class="form-content-inner">
 
         <div class=" text-white text-center">
           <h1>Neues Passwort setzen</h1>
@@ -23,10 +23,6 @@
           </div>
         </Form>
       </div>
-      <div v-else>
-        Es wurde Ihnen eine Nachricht an die eingegebene E-Mail gesendet.
-        Bitte sehen Sie in Ihr Postfach (ggf. auch im Spam Ordner) nach und folgen den Anweisungen.
-      </div>
     </div>
   </div>
 </template>
@@ -37,6 +33,7 @@ import {reactive, ref} from "vue";
 import {Button, FloatLabel, InputText} from "primevue";
 import {useToast} from "primevue/usetoast";
 import {useValidator} from "@/utils/validator/validator.js";
+import router from "@/utils/router/index.js";
 
 const toast = useToast();
 const validate = useValidator();
@@ -70,19 +67,16 @@ const onFormSubmit = ({valid}) => {
   }
 };
 
-const register = ref(false);
-
 async function submitRegister() {
   await axios
       .patch("/api/account/password/" + props.token, payload,)
       .then((response) => {
         if (response?.status === 200) {
-          register.value = true;
           toast.add({severity: 'success', summary: 'Erfolg', detail: 'Neues Password wurde gesetzt', life: 3000});
+          router.push({name: 'app_login'});
         }
       })
       .catch((error) => {
-            register.value = false;
             if (error?.response.status === 400 || error?.response.status === 401 || error?.response.status === 403) {
               toast.add({severity: 'error', summary: 'Fehler bei der Verarbeitung', detail: 'Eingegebene Daten prüfen', life: 5000});
             } else {
