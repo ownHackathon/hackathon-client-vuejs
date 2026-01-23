@@ -19,7 +19,7 @@
                 <label for="email">E-Mail</label>
               </FloatLabel>
             </InputGroup>
-            <p class="text-sm text-gray-500">Demouser</p>
+            <p class="text-sm text-gray-500">demouser@ownhackathon.de</p>
             <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
           </div>
           <div class="pb-4">
