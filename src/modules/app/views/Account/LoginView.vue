@@ -19,6 +19,7 @@
                 <label for="email">E-Mail</label>
               </FloatLabel>
             </InputGroup>
+            <p class="text-sm text-gray-500">Demouser</p>
             <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
           </div>
           <div class="pb-4">
@@ -46,6 +47,7 @@
               </FloatLabel>
             </InputGroup>
             <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error?.message }}</Message>
+            <p class="text-sm text-gray-500">Demouser</p>
           </div>
           <div class="flex flex-row pb-4 gap-6 ">
             <div class="flex">
