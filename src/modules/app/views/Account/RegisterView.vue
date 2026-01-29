@@ -6,7 +6,14 @@
         <p>Bitte eine gültige E-Mail Adresse für einen neuen Account angeben</p>
         <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Sie müssen Zugriff auf diese haben!</p>
       </div>
-      <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+      <Form
+          v-slot="$form"
+          :payload
+          :resolver
+          @submit="onFormSubmit"
+          :validateOnValueUpdate="false"
+          :validateOnBlur="true"
+      >
         <CustomInputText
             id="email"
             name="email"
@@ -33,7 +40,7 @@ import {useToast} from "primevue/usetoast";
 import {useValidator} from "@/utils/validator/validator.js";
 import FormCard from "@/modules/app/components/FormCard.vue";
 import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
-import { Form } from '@primevue/forms';
+import {Form} from '@primevue/forms';
 
 const toast = useToast();
 const validate = useValidator();

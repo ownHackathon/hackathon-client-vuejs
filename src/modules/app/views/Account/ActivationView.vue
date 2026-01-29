@@ -5,7 +5,14 @@
       <p>Bitte geben Sie Ihren Account einen Namen und wählen Sie ein Passwort</p>
       <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Durch klicken auf "Aktivieren" wird Ihr Account erstellt.</p>
     </div>
-    <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+    <Form
+        v-slot="$form"
+        :payload
+        :resolver
+        @submit="onFormSubmit"
+        :validateOnValueUpdate="false"
+        :validateOnBlur="true"
+    >
       <CustomInputText
           id="accountName"
           name="accountName"
@@ -38,7 +45,7 @@ import axios from "axios";
 import FormCard from "@/modules/app/components/FormCard.vue";
 import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
 import CustomPasswordInput from "@/modules/app/components/Input/CustomPasswordInput.vue";
-import { Form } from '@primevue/forms';
+import {Form} from '@primevue/forms';
 
 const validate = useValidator();
 const toast = useToast();

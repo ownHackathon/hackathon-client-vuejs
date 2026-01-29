@@ -4,7 +4,14 @@
       <h1>Neues Passwort setzen</h1>
       <p>Bitte geben Sie ein neues Passwort für Ihren Account ein</p>
     </div>
-    <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+    <Form
+        v-slot="$form"
+        :payload
+        :resolver
+        @submit="onFormSubmit"
+        :validateOnValueUpdate="false"
+        :validateOnBlur="true"
+    >
       <CustomPasswordInput
           id="password"
           name="password"
@@ -28,7 +35,7 @@ import {useValidator} from "@/utils/validator/validator.js";
 import router from "@/utils/router/index.js";
 import FormCard from "@/modules/app/components/FormCard.vue";
 import CustomPasswordInput from "@/modules/app/components/Input/CustomPasswordInput.vue";
-import { Form } from '@primevue/forms';
+import {Form} from '@primevue/forms';
 
 const toast = useToast();
 const validate = useValidator();

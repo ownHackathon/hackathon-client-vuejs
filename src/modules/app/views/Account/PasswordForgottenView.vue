@@ -5,7 +5,14 @@
         <h1>Passwort vergessen</h1>
         <p>Bitte geben Sie Ihre E-Mail Adresse ein.</p>
       </div>
-      <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+      <Form
+          v-slot="$form"
+          :payload
+          :resolver
+          @submit="onFormSubmit"
+          :validateOnValueUpdate="false"
+          :validateOnBlur="true"
+      >
         <CustomInputText
             id="email"
             name="email"
@@ -33,7 +40,7 @@ import {useToast} from "primevue/usetoast";
 import {useValidator} from "@/utils/validator/validator.js";
 import FormCard from "@/modules/app/components/FormCard.vue";
 import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
-import { Form } from '@primevue/forms';
+import {Form} from '@primevue/forms';
 
 const toast = useToast();
 const validate = useValidator();
