@@ -117,7 +117,7 @@ async function submitlogin() {
         }
       })
       .catch((error) => {
-            if (error?.response.status === 400 || error?.response.status === 401 || error?.response.status === 403) {
+            if (error?.response.status === 400 || error?.response.status === 401 || error?.response.status === 403 || error?.response.status === 409) {
               toast.add({severity: 'error', summary: 'Fehler bei der Anmeldung', detail: 'Eingegebene Daten prüfen', life: 5000});
             } else {
               toast.add({severity: 'error', summary: 'Fehler bei der Anmeldung', detail: 'Unbekannter Fehler', life: 5000});
