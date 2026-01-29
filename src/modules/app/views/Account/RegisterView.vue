@@ -1,43 +1,39 @@
 <template>
-  <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content">
-      <div v-if="!register" class="form-content-inner">
-
-        <div class=" text-white text-center">
-          <h1>Registrieren</h1>
-          <p>Bitte eine gültige E-Mail Adresse für einen neuen Account angeben</p>
-          <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Sie müssen Zugriff auf diese haben!</p>
-        </div>
-        <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-at"></i>
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
-              <label for="email">E-Mail</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
-          <div class="flex pt-4 gap-6 ">
-            <Button type="submit" class="submitButtonWith" label="Registrieren" icon="pi pi-user"/>
-          </div>
-        </Form>
+  <FormCard>
+    <div v-if="!register">
+      <div class=" text-white text-center">
+        <h1>Registrieren</h1>
+        <p>Bitte eine gültige E-Mail Adresse für einen neuen Account angeben</p>
+        <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Sie müssen Zugriff auf diese haben!</p>
       </div>
-      <div v-else>
-        Es wurde Ihnen eine Nachricht an die eingegebene E-Mail gesendet.
-        Bitte sehen Sie in Ihr Postfach (ggf. auch im Spam Ordner) nach und folgen den Anweisungen.
-      </div>
+      <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+        <CustomInputText
+            id="email"
+            name="email"
+            label="E-Mail"
+            icon="pi pi-at"
+            type="email"
+            :error-message="$form.email?.error?.message"
+        />
+        <Button type="submit" class="submitButtonWith" label="Registrieren" icon="pi pi-user"/>
+      </Form>
     </div>
-  </div>
+    <div v-else>
+      Es wurde Ihnen eine Nachricht an die eingegebene E-Mail gesendet.
+      Bitte sehen Sie in Ihr Postfach (ggf. auch im Spam Ordner) nach und folgen den Anweisungen.
+    </div>
+  </FormCard>
 </template>
 
 <script setup>
 import axios from "axios";
 import {reactive, ref} from "vue";
-import {Button, FloatLabel, InputText} from "primevue";
+import {Button} from "primevue";
 import {useToast} from "primevue/usetoast";
 import {useValidator} from "@/utils/validator/validator.js";
+import FormCard from "@/modules/app/components/FormCard.vue";
+import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
+import { Form } from '@primevue/forms';
 
 const toast = useToast();
 const validate = useValidator();

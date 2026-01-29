@@ -1,39 +1,34 @@
 <template>
-  <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content">
-      <div class="form-content-inner">
-
-        <div class=" text-white text-center">
-          <h1>Neues Passwort setzen</h1>
-          <p>Bitte geben Sie ein neues Passwort für Ihren Account ein</p>
-        </div>
-        <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-lock"></i>
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText v-model="payload.password" name="password" type="password" class="inputTextWidth" size="small" fluid/>
-              <label for="password">Password</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error?.message }}</Message>
-          <div class="flex pt-4 gap-6 ">
-            <Button type="submit" class="submitButtonWith" label="neues Password setzen" icon="pi pi-user"/>
-          </div>
-        </Form>
-      </div>
+  <FormCard>
+    <div class=" text-white text-center">
+      <h1>Neues Passwort setzen</h1>
+      <p>Bitte geben Sie ein neues Passwort für Ihren Account ein</p>
     </div>
-  </div>
+    <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+      <CustomPasswordInput
+          id="password"
+          name="password"
+          label="Password"
+          v-model="payload.password"
+          icon="pi pi-lock"
+          :error-message="$form.password?.error?.message"
+          :feedback="true"
+      />
+      <Button type="submit" class="submitButtonWith" label="neues Password setzen" icon="pi pi-user"/>
+    </Form>
+  </FormCard>
 </template>
 
 <script setup>
 import axios from "axios";
 import {reactive} from "vue";
-import {Button, FloatLabel, InputText} from "primevue";
+import {Button} from "primevue";
 import {useToast} from "primevue/usetoast";
 import {useValidator} from "@/utils/validator/validator.js";
 import router from "@/utils/router/index.js";
+import FormCard from "@/modules/app/components/FormCard.vue";
+import CustomPasswordInput from "@/modules/app/components/Input/CustomPasswordInput.vue";
+import { Form } from '@primevue/forms';
 
 const toast = useToast();
 const validate = useValidator();

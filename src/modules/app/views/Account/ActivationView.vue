@@ -1,45 +1,32 @@
 <template>
-  <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content">
-      <div class="form-content-inner">
-        <div class=" text-white text-center">
-          <h1>Account Aktivierung</h1>
-          <p>Bitte geben Sie Ihren Account einen Namen und wählen Sie ein Passwort</p>
-          <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Durch klicken auf "Aktivieren" wird Ihr Account erstellt.</p>
-        </div>
-        <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <div class="pb-4">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-user"></i>
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <InputText v-model="payload.accountName" name="accountName" type="text" class="inputTextWidth" size="small" fluid/>
-                <label for="accountName">Account Name</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message v-if="$form.accountName?.invalid" severity="error" size="small" variant="simple">{{ $form.accountName.error?.message }}</Message>
-          </div>
-          <div class="pb-4">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-lock"></i>
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <Password v-model="payload.password" name="password" type="password" class="inputTextWidth" size="small" toggleMask fluid/>
-                <label for="password">Passwort</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error?.message }}</Message>
-          </div>
-          <div class="flex pt-4 gap-6 ">
-            <Button type="submit" class="submitButtonWith" label="Aktivieren" icon="pi pi-user"/>
-          </div>
-        </Form>
-      </div>
+  <FormCard>
+    <div class=" text-white text-center">
+      <h1>Account Aktivierung</h1>
+      <p>Bitte geben Sie Ihren Account einen Namen und wählen Sie ein Passwort</p>
+      <p class="text-sm text-gray-500"><span class="text-red-500">Hinweis:</span> Durch klicken auf "Aktivieren" wird Ihr Account erstellt.</p>
     </div>
-  </div>
-
+    <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
+      <CustomInputText
+          id="accountName"
+          name="accountName"
+          v-model="payload.accountName"
+          type="text"
+          label="Account Name"
+          icon="pi pi-user"
+          :error-message="$form.accountName?.error?.message"
+      />
+      <CustomPasswordInput
+          id="accountPassword"
+          name="account"
+          v-model="payload.password"
+          label="Password"
+          icon="pi pi-lock"
+          :error-message="$form.password?.error?.message"
+          :feedback="true"
+      />
+      <Button type="submit" class="submitButtonWith" label="Aktivieren" icon="pi pi-user"/>
+    </Form>
+  </FormCard>
 </template>
 
 <script setup>
@@ -48,6 +35,10 @@ import {useValidator} from "@/utils/validator/validator.js";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import axios from "axios";
+import FormCard from "@/modules/app/components/FormCard.vue";
+import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
+import CustomPasswordInput from "@/modules/app/components/Input/CustomPasswordInput.vue";
+import { Form } from '@primevue/forms';
 
 const validate = useValidator();
 const toast = useToast();

@@ -1,66 +1,50 @@
 <template>
-  <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content">
-      <div class="form-content-inner">
-        <Form v-slot="$form" :payload :resolver @submit="onFormSubmit">
-          <div class=" text-white text-center">
-            <h1>Willkommen</h1>
-            <p>Noch keinen Account?
-              <router-link :to="{name: 'app_register'}">Hier anlegen!</router-link>
-            </p>
-          </div>
-          <div class="pb-4">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-at"></i>
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <InputText v-model="payload.email" name="email" type="email" class="inputTextWidth" size="small" fluid/>
-                <label for="email">E-Mail</label>
-              </FloatLabel>
-            </InputGroup>
-            <p class="text-sm text-gray-500">demouser@ownhackathon.de</p>
-            <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">{{ $form.email.error?.message }}</Message>
-          </div>
-          <div class="pb-4">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-lock"></i>
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <Password v-model="payload.password" name="password" class="inputTextWidth" size="small" toggleMask fluid>
-                  <template #header>
-                    <div class="font-semibold text-xm mb-4">Eingabe vom Passwort</div>
-                    <hr>
-                  </template>
-                  <template #content>
-                    <div class="font-semibold text-xm mb-4">Bitte beachten</div>
-                  </template>
-                  <template #footer>
-                    <ul class="pl-2 ml-2 my-0 leading-normal">
-                      <li>Sage keinem anderen dein Passwort</li>
-                      <li>Wir werden dich nie nach deinem Passwort fragen!</li>
-                    </ul>
-                  </template>
-                </Password>
-                <label for="password">Passwort</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">{{ $form.password.error?.message }}</Message>
-            <p class="text-sm text-gray-500">Demouser</p>
-          </div>
-          <div class="flex flex-row pb-4 gap-6 ">
-            <div class="flex">
-              <router-link :to="{name: 'app_account_password_forgotten'}">Passwort vergessen?</router-link>
-            </div>
-          </div>
-          <div>
-            <Button type="submit" class="submitButtonWith" label="Anmelden" icon="pi pi-user"/>
-          </div>
-        </Form>
+  <FormCard>
+    <Form
+        v-slot="$form"
+        :payload
+        :resolver
+        @submit="onFormSubmit"
+        :validateOnValueUpdate="false"
+        :validateOnBlur="true"
+    >
+      <div class=" text-white text-center">
+        <h1>Willkommen</h1>
+        <p>Noch keinen Account?
+          <router-link :to="{name: 'app_register'}">Hier anlegen!</router-link>
+        </p>
       </div>
-    </div>
-  </div>
+      <CustomInputText
+          id="email"
+          name="email"
+          v-model="payload.email"
+          type="email"
+          label="E-Mail"
+          icon="pi pi-at"
+          help-text="demouser@ownhackathon.de"
+          :error-message="$form.email?.error?.message"
+      />
+      <CustomPasswordInput
+          id="password"
+          name="password"
+          v-model="payload.password"
+          label="Passwort"
+          icon="pi pi-lock"
+          help-text="Demouser"
+          :error-message="$form.password?.error?.message"
+          :feedback="true"
+          :show-rules="true"
+      />
+      <div class="flex flex-row pb-4 gap-6 ">
+        <div class="flex">
+          <router-link :to="{name: 'app_account_password_forgotten'}">Passwort vergessen?</router-link>
+        </div>
+      </div>
+      <div>
+        <Button type="submit" class="submitButtonWith" label="Anmelden" icon="pi pi-user"/>
+      </div>
+    </Form>
+  </FormCard>
 </template>
 
 <script setup>
@@ -68,9 +52,13 @@ import axios from "axios";
 import {reactive} from "vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
-import {Button, FloatLabel, InputGroup, InputGroupAddon, InputText, Message, Password} from "primevue";
+import {Button} from "primevue";
 import {useAuthStore} from "@/stores/AuthStore.js";
 import {useValidator} from "@/utils/validator/validator.js";
+import FormCard from "@/modules/app/components/FormCard.vue";
+import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
+import CustomPasswordInput from "@/modules/app/components/Input/CustomPasswordInput.vue";
+import { Form } from '@primevue/forms';
 
 const router = useRouter();
 const toast = useToast();
