@@ -5,16 +5,14 @@ import {RouterView} from "vue-router";
 </script>
 
 <template>
-  <div class="layout-wrapper">
+  <div class="layout-wrapper w-full">
   <header>
     <div class="flex w-full">
       <NavigationHeadBar class="w-full"/>
     </div>
   </header>
-  <main class="flex-grow-1 flex flex-column overflow-auto">
-    <div class="flex-grow-1 w-full flex flex-column">
+  <main class="flex flex-column flex-grow-1">
       <RouterView />
-    </div>
   </main>
   <footer class="flex w-full">
     <FooterView class="w-full"/>

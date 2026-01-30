@@ -14,5 +14,12 @@ export const useValidator = () => {
     return account && (account.length > 2 && account.length < 65);
   };
 
-  return {email, password, accountName, useValidator};
+  const workspaceName = (workspace) => {
+    return workspace && (workspace.length > 2 && workspace.length < 65);
+  }
+
+  const workspaceDescription = (description) => {
+    return !description || description?.length < 256;
+  }
+  return {email, password, accountName, workspaceName, workspaceDescription, useValidator};
 };

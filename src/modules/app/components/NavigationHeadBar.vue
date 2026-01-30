@@ -152,6 +152,7 @@ const creation_menu_model = computed(() => [
   {
     label: 'Neuen Workspace',
     icon: 'pi pi-plus',
+    command: () => router.push({name: 'app_workspace_create'}),
   },
   {
     label: 'Neues Event',
@@ -181,6 +182,7 @@ const account = computed(() => [
   {
     label: 'Workspace',
     icon: 'pi pi-cog',
+    command: () => router.push({name: 'app_workspace_me'}),
   },
   {
     label: 'Favoriten',

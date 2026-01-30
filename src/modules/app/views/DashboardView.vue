@@ -1,42 +1,31 @@
 <template>
-  <div class="flex justify-content-center feed-container">
-    <div class="flex feed-content">
-      <div class="feed-content-inner">
-        <span>Feed</span>
-        <div class="flex justify-content-center form-container">
-          <div class="flex  form-content bg-black-alpha-10" style="min-width: 100% !important">
-            <div class="form-content-inner">
-              <p><i class="pi pi-user"></i> Bibaltik erschafft eine neue Welt</p>
-              <div class="flex justify-content-center form-container">
-                <div class="flex  form-content" style="min-width: 100% !important">
-                  <div class="form-content-inner">
-                    <p>Neuen Workspace erstellt</p>
-                  </div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="card p-4">
+    <Tabs :v-model="items">
+      <TabList>
+        <Tab v-for="tab in items" :key="tab.label" :value="tab.route">
+          <router-link v-if="tab.route" v-slot="{ href, navigate }" :to="tab.route" custom>
+            <a v-ripple :href="href" @click="navigate" class="flex items-center gap-2 text-inherit">
+              <i :class="tab.icon" />
+              <span>{{ tab.label }}</span>
+            </a>
+          </router-link>
+        </Tab>
+      </TabList>
+      <TabPanels :items="items">
+        <RouterView />
+      </TabPanels>
+
+    </Tabs>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 
+const items = ref([
+  { route: '/app/test', label: 'Dashboard', icon: 'pi pi-home' },
+  { route: '/transactions', label: 'Profil', icon: 'pi pi-user' },
+  { route: '/workspace', label: 'Workspace', icon: 'pi pi-list' },
+  { route: '/messages', label: 'Events', icon: 'pi pi-inbox' }
+]);
 </script>
-
-<style scoped>
-.feed-container {
-  width: 100%;
-}
-
-.feed-content {
-  margin-top: 10px;
-  padding: 10px;
-  max-width: 95%;
-  min-width: 25%;
-}
-
-.feed-content-inner {
-  padding: 20px;
-}
-</style>
