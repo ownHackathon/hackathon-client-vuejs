@@ -22,7 +22,9 @@ const toast = useToast();
 onMounted(async () => {
   try {
     if (authStore.isLoggedIn) {
-      const response = await axios.get("/api/account/logout");
+      const response = await axios.post("/api/account/logout", {
+        refreshToken: authStore.refreshToken,
+      });
       console.log(response?.status);
       if (response?.status === 200) {
         toast.add({severity: 'success', summary: 'Abgemeldet', detail: 'Bis bald!', life: 3000});
