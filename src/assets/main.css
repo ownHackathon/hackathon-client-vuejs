@@ -1,20 +1,30 @@
-@font-face {
-    font-family: 'Lato Regular';
-    src: url(fonts/Lato-Regular.ttf);
+:root {
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* Verhindert das horizontale Wackeln auf dem Handy */
+    min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    color: #94a3b8;
-    background-color: #090d15;
-    font-family: 'Lato Regular', sans-serif;
-    font-style: normal;
-    font-weight: 300;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Weicher Übergang beim Wechsel */
+}
+
+html, body {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-attachment: fixed;
+}
+
+.p-dark body {
+    background: linear-gradient(135deg, #0a1929 0%, #132a45 25%, #0d1f35 50%, #071428 75%, #0a1428 100%);
+    background-attachment: fixed;
 }
 
 a:link, a:visited {
@@ -27,42 +37,29 @@ a:hover, a:active {
 
 }
 
-/* Sicherstellen, dass h1 sauber gerendert wird */
 h1 {
     display: block;
     font-family: inherit;
 }
 
-/* Media Query für Mobilgeräte (bis ca. 768px) */
 @media screen and (max-width: 768px) {
-    /* Das Haupt-Container Element des Toasts */
     .p-toast {
-        width: auto !important; /* Verhindert 100% Breite */
-        left: auto !important;  /* Hebt die Links-Verankerung auf */
-        right: 20px !important; /* Abstand vom rechten Rand */
-        top: 20px !important;   /* Abstand von oben */
-        min-width: 250px;       /* Optionale Mindestbreite */
-        max-width: 90vw;        /* Verhindert, dass er über den linken Rand hinausragt */
+        width: auto !important;
+        left: auto !important;
+        right: 20px !important;
+        top: 20px !important;
+        min-width: 250px;
+        max-width: 90vw;
     }
 
-    /* Die eigentliche Nachricht im Toast */
     .p-toast-message {
-        margin-bottom: 10px;    /* Abstand zwischen mehreren Meldungen */
+        margin-bottom: 10px;
     }
 }
 
 .staircase-text {
-    /* Fluid Typography:
-       3.2rem = Mindestgröße für Handy (ca. 51px), damit 'Möglichkeiten' nicht bricht.
-       12vw   = Skaliert perfekt mit der Breite des Browsers.
-       20rem  = Maximale Größe für 4K-Monitore (ca. 320px).
-    */
     font-size: clamp(1.0rem, 10vw, 20rem);
-
-    /* Zeilenhöhe reduzieren für den kompakten Treppeneffekt */
     line-height: 0.85;
-
-    /* Enger zusammenstehende Buchstaben */
     letter-spacing: -0.05em;
 }
 
@@ -75,11 +72,22 @@ h1 {
     padding: 10px;
     max-width: 95%;
     min-width: 25%;
-    background-color: #111827;
     border-radius: 10px;
-    border: gray solid thin;
+    border: darkslategray solid thin;
 }
 
 .form-content-inner {
     padding: 20px;
 }
+
+.p-datatable-thead > tr > th:first-child {
+    border-top-left-radius: 8px !important;
+}
+
+.p-datatable-thead > tr > th:last-child {
+    border-top-right-radius: 8px !important;
+}
+.p-datatable-tbody > tr:last-child > td {
+    border-bottom-color: transparent !important;
+}
+

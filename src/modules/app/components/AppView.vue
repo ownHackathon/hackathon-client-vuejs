@@ -28,9 +28,4 @@ import {RouterView} from "vue-router";
   min-height: 100vh;
   min-height: 100dvh;
 }
-
-#app {
-  width: 100%;
-  overflow-x: hidden;
-}
 </style>

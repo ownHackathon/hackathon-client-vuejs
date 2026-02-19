@@ -1,11 +1,11 @@
 <script setup>
-// Falls du PrimeVue Buttons nutzt, stelle sicher, dass Button importiert ist oder global registriert wurde.
+
 </script>
 
 <template>
   <main class="flex-grow-1 flex flex-column overflow-auto p-1">
     <!-- Zentraler Container analog zur Referenz -->
-    <div class="flex-grow-1 flex flex-column surface-0 dark:surface-900 h-full flex align-items-center justify-content-center p-4 overflow-hidden">
+    <div class="flex-grow-1 flex flex-column h-full flex align-items-center justify-content-center p-4 overflow-hidden">
 
       <div class="flex flex-column w-full max-w-7xl">
 

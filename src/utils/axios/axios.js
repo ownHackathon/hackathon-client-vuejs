@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/utils/router/index.js";
 import {useAuthStore} from "@/stores/AuthStore.js";
+import {useClientIDStore} from "@/stores/ClientIDStore.js";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ axios.interceptors.response.use(function (response) {
   return response;
 }, async function (error) {
   const authStore = useAuthStore();
+  const clientIDStore = useClientIDStore();
 
   if (error.response.status === 401 && error.response.data.message === 'Token has expired') {
     console.log('API Answer: Token has expired');
@@ -45,6 +47,8 @@ axios.interceptors.response.use(function (response) {
       originalRequest.headers["Authorization"] = authStore.accessToken;
       return axios(originalRequest);
     } catch (refreshErrors) {
+      authStore.logOut();
+      clientIDStore.regenerateClientID();
       return Promise.reject(refreshErrors);
     }
   } else if (error.response.status === 401) {

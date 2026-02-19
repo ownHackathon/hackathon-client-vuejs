@@ -13,5 +13,5 @@ axios.defaults.headers.common['x-ident'] = clientIDStore.uniqueClientID;
 <template>
   <Toast position="top-right" />
 
-  <RouterView/>
+  <RouterView />
 </template>

@@ -9,6 +9,11 @@ const router = createRouter({
           path: '/app',
           children: [
             {
+              path: '/:pathMatch(.*)*',
+              name: 'app_path_not_found',
+              component: () => import('@app/views/NotFoundView.vue'),
+            },
+            {
               path: '',
               name: 'app_home',
               component: () => import('@app/views/HomeView.vue')
@@ -71,7 +76,7 @@ const router = createRouter({
               meta: {requiresAuth: true},
               children: [
                 {
-                  path: 'me',
+                  path: 'list/me',
                   name: 'app_workspace_me',
                   component: () => import('@/modules/app/views/Workspace/OwnWorkspacesView.vue'),
                 },
@@ -79,6 +84,12 @@ const router = createRouter({
                   path: 'create',
                   name: 'app_workspace_create',
                   component: () => import('@/modules/app/views/Workspace/WorkspaceCreate.vue')
+                },
+                {
+                  path: ':slug',
+                  name: 'app_workspace_detail',
+                  component: () => import('@/modules/app/views/Workspace/WorkspaceView.vue'),
+                  props: true,
                 }
               ]
             },
@@ -88,16 +99,11 @@ const router = createRouter({
               component: () => import('@app/views/TestView.vue')
             },
 
-          ]
+          ],
         },
         {
           path: '/',
           redirect: 'app'
-        },
-        {
-          path: '/:pathMatch(.*)*',
-          name: 'app_path_not_found',
-          component: () => import('@app/views/404NotFoundView.vue'),
         },
         {
           path: '/external',

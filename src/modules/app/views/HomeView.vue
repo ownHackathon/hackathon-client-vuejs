@@ -1,7 +1,7 @@
 <template>
   <main class="flex-grow-1 flex flex-column overflow-auto p-1">
     <!-- min-h-screen und flex zum Zentrieren der gesamten Box -->
-    <div class="flex-grow-1 flex flex-column surface-0 dark:surface-900 h-full flex align-items-center justify-content-center p-4 overflow-hidden">
+    <div class="flex-grow-1 flex flex-column  h-full flex align-items-center justify-content-center p-4 overflow-hidden">
 
       <!-- Hauptcontainer: Volle Breite (w-full) und vertikale Ausrichtung (flex-column) -->
       <div class="flex flex-column w-full uppercase font-black italic">

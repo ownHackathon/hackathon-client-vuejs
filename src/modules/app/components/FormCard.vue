@@ -4,7 +4,7 @@
       <div class="form-content-inner">
         <p v-if="title">
           <i v-if="icon" :class="icon" class="mr-2"></i>
-          <span>{{ title }}</span>
+          <span style="color: white; font-size: 1.5rem">{{ title }}</span>
         </p>
         <slot></slot>
       </div>

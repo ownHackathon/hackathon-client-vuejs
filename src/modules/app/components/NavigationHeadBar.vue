@@ -15,7 +15,7 @@
         <a v-ripple class="flex items-center" v-bind="props.action">
           <span>{{ item.label }}</span>
           <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge"/>
-          <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+          <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis  text-xs p-1">{{ item.shortcut }}</span>
           <i v-if="hasSubmenu" :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
         </a>
       </template>
@@ -49,9 +49,8 @@
                 rounded
                 text
                 severity="secondary"
-            >
-              <i class="pi pi-envelope"></i>
-            </Button>
+                icon="pi pi-envelope"
+            />
           </div>
           <div class="flex items-center ">
             <Button
@@ -59,9 +58,8 @@
                 rounded
                 text
                 severity="secondary"
-            >
-              <i class="pi pi-bell"></i>
-            </Button>
+                icon="pi pi-bell"
+            />
           </div>
           <div class="flex items-center ">
             <Button
@@ -210,12 +208,10 @@ const account = computed(() => [
 <style scoped>
 .nav-link:link, .nav-link:visited {
   font-size: 1.2rem;
-  color: lavender;
   text-decoration: none;
 }
 
 .nav-link:hover, .nav-link:active {
-  color: white;
   text-decoration-thickness: 2px;
 }
 
@@ -225,4 +221,9 @@ const account = computed(() => [
   height: 32px;
   display: block;
 }
+
+.pi {
+  color: var(--p-primary-200);
+}
+
 </style>
