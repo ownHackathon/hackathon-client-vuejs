@@ -24,7 +24,7 @@
           <router-link :to="{name: 'external_stoat'}" title="Stoat"><i class="stoat-logo"/></router-link>
         </div>
         <div class="text-right border-round-sm pr-4">
-          <router-link :to="{name: 'external_fluxer'}" title="Stoat"><i class="fluxer-logo"/></router-link>
+          <router-link :to="{name: 'external_fluxer'}" title="Fluxer"><i class="fluxer-logo"/></router-link>
         </div>
         <div class="text-right border-round-sm pr-2">
           <router-link :to="{name: 'external_github'}" title="Github"><i class="pi pi-github"/></router-link>
