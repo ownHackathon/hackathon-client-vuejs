@@ -41,7 +41,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          details: Successful deployment on build https://dev.ownHackathon.de
+          details: Successful deployment on dev https://dev.ownHackathon.de
           webhookUrl: ${{ secrets.WEBHOOK_DISCORD_URL }}
         if: success()
 
@@ -49,6 +49,6 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: error
-          details: Failure deployment on build.
+          details: Failure deployment on dev.
           webhookUrl: ${{ secrets.WEBHOOK_DISCORD_URL }}
         if: failure()
