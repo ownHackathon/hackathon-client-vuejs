@@ -120,7 +120,23 @@ const router = createRouter({
               path: 'discord',
               name: 'external_discord',
               beforeEnter(to, from, next) {
-                window.open('https://discord.gg/uzqB4YmdTy', '_blank');
+                window.open('https://discord.gg/ZHEaP9p3', '_blank');
+                next(false);
+              }
+            },
+            {
+              path: 'stoat',
+              name: 'external_stoat',
+              beforeEnter(to, from, next) {
+                window.open('https://stt.gg/mQSxccXZ', '_blank');
+                next(false);
+              }
+            },
+            {
+              path: 'fluxer',
+              name: 'external_fluxer',
+              beforeEnter(to, from, next) {
+                window.open('https://fluxer.gg/hlSqL7uB', '_blank');
                 next(false);
               }
             }
