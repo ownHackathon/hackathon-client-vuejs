@@ -20,10 +20,10 @@
         <div class="text-right border-round-sm pr-4">
           <router-link :to="{name: 'external_discord'}" title="Discord"><i class="pi pi-discord"/></router-link>
         </div>
-        <div class="text-right border-round-sm pr-4">
+        <div class="text-right border-round-sm pr-4 hidden">
           <router-link :to="{name: 'external_stoat'}" title="Stoat"><i class="stoat-logo"/></router-link>
         </div>
-        <div class="text-right border-round-sm pr-4">
+        <div class="text-right border-round-sm pr-4 hidden">
           <router-link :to="{name: 'external_fluxer'}" title="Fluxer"><i class="fluxer-logo"/></router-link>
         </div>
         <div class="text-right border-round-sm pr-2">
