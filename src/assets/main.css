@@ -68,12 +68,33 @@ h1 {
 }
 
 .form-content {
-    margin-top: 10px;
-    padding: 10px;
     max-width: 95%;
     min-width: 25%;
-    border-radius: 10px;
-    border: darkslategray solid thin;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(var(--p-surface-700), var(--p-surface-800)) padding-box,
+    linear-gradient(to bottom,
+            var(--p-surface-600) 0%, /* Oben: Hell */
+            var(--p-surface-700) 30%, /* Übergang zu Dunkel an den Seiten */
+            var(--p-surface-700) 40%, /* Bleibt Dunkel an den Seiten */
+            var(--p-surface-600) 100% /* Unten: Wieder hell */
+    ) border-box;
+
+    margin: 2rem auto;
+    width: calc(100% - 2rem);
+
+    @media (min-width: 768px) {
+        max-width: 720px;
+    }
+
+    @media (min-width: 1024px) {
+        max-width: 960px;
+    }
+
+    @media (min-width: 1280px) {
+        max-width: 1200px;
+    }
+
 }
 
 .form-content-inner {
@@ -87,6 +108,7 @@ h1 {
 .p-datatable-thead > tr > th:last-child {
     border-top-right-radius: 8px !important;
 }
+
 .p-datatable-tbody > tr:last-child > td {
     border-bottom-color: transparent !important;
 }

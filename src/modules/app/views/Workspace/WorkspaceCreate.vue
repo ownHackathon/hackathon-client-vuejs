@@ -9,24 +9,42 @@
         @submit="onFormSubmit"
         :validateOnValueUpdate="false"
         :validateOnBlur="true"
+        class="flex flex-column gap-1"
     >
-    <CustomInputText
-        id="name"
-        name="name"
-        label="Workspace Name"
-        type="text"
-        v-model="payload.name"
-        :error-message="$form.name?.error?.message"
-      />
-      <CustomTextarea
-          id="description"
-          name="description"
-          label="Workspace Beschreibung"
-          v-model="payload.description"
-          :error-message="$form.description?.error?.message"
-      />
-      <div>
-        <Button type="submit" class="submitButtonWith" label="Erstellen"/>
+      <div class="w-full md:w-8 lg:w-8">
+        <span class="description-text">Ein eindeutiger Name für den Workspace</span>
+        <CustomInputText
+            id="name"
+            name="name"
+            label="Name"
+            type="text"
+            v-model="payload.name"
+            :error-message="$form.name?.error?.message"
+        />
+      </div>
+      <div class="w-full md:w-8 lg:w-8">
+        <span class="description-text">Eine kurze Beschreibung welche in Listen erscheint</span>
+        <CustomTextarea
+            id="description"
+            name="description"
+            label="Kurzbeschreibung"
+            rows="2"
+            v-model="payload.description"
+            :error-message="$form.description?.error?.message"
+        />
+      </div>
+      <div class="w-full">
+        <span class="description-text">Hier kann mittels Markdown der Workspace vollumfänglich Beschrieben und Präsentiert werden</span>
+        <CustomTextarea
+            id="details"
+            name="details"
+            label="Details"
+            rows="15"
+            v-model="payload.details"
+        />
+      </div>
+      <div class="w-full md:w-8 lg:w-8 align-self-center flex justify-content-center mt-4">
+        <Button type="submit" class="submitButtonWith" label="Workspace Erstellen"/>
       </div>
     </Form>
   </FormCard>
@@ -48,6 +66,7 @@ const toast = useToast();
 const payload = reactive({
   name: '',
   description: '',
+  details: '',
 });
 
 const resolver = ({values}) => {
@@ -78,7 +97,7 @@ async function submitlogin() {
       .then((response) => {
         if (response?.status === 201) {
           toast.add({severity: 'success', summary: 'Erfolgreich', detail: 'Workspace wurde erstellt', life: 3000});
-          router.push(`/app/workspace/${response.data.slug}`)
+          router.push(`/app/workspace/${response.data.slug}`);
         }
       })
       .catch((error) => {
@@ -93,8 +112,9 @@ async function submitlogin() {
 </script>
 
 <style scoped>
-.inputTextWidth {
-  width: 100%;
+.description-text {
+  font-size: 0.9rem;
+  color: var(--p-gray-400);
 }
 
 .submitButtonWith {

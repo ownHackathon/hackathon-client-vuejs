@@ -1,6 +1,6 @@
 <template>
-  <div class="pb-4">
-    <div class="field mb-3">
+  <div>
+    <div class="field pt-1">
       <InputGroup>
         <InputGroupAddon v-if="icon">
           <i :class="icon"></i>

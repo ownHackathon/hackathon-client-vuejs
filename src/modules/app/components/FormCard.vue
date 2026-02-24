@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content" >
-      <div class="form-content-inner">
-        <p v-if="title">
+    <div class="flex justify-content-center form-content w-full md:w-8 lg:w-5">
+      <div class="form-content-inner w-full">
+        <p v-if="title" class="text-center pb-5">
           <i v-if="icon" :class="icon" class="mr-2"></i>
           <span style="color: white; font-size: 1.5rem">{{ title }}</span>
         </p>
@@ -26,5 +26,6 @@ defineProps({
 </script>
 
 <style scoped>
+
 
 </style>

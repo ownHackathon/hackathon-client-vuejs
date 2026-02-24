@@ -1,6 +1,6 @@
 <template>
-  <div class="pb-4">
-    <div class="field mb-3">
+  <div class="pt-1" >
+    <div class="field mb-3 w-full">
       <InputGroup>
         <InputGroupAddon v-if="icon">
           <i :class="icon"></i>
@@ -15,6 +15,7 @@
               :autoResize="autoResize"
               fluid
               :invalid="!!errorMessage"
+              style="max-width: 80ch"
           />
           <label :for="id">{{ label }}</label>
         </FloatLabel>
