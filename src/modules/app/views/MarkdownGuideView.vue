@@ -9,7 +9,7 @@
 <script setup>
 import { ref } from 'vue';
 import MarkdownViewer from './../components/MarkdownViewer.vue'
-import defaultMarkdown from '@/assets/templates/md-demo.md?raw';
+import defaultMarkdown from './../../../../docs/markdown-guide.md?raw';
 
 // Der zentrale State, den beide Komponenten teilen
 const detailsText = ref(defaultMarkdown);
