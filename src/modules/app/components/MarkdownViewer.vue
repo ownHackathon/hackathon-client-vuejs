@@ -1,16 +1,8 @@
 <template>
-  <div class="card">
-    <div class="flex flex-column gap-2 w-full">
-    <span v-if="label" class="font-bold text-gray-700">
-      <i class="pi pi-eye mr-2"></i>{{ label }}
-    </span>
-      <!-- Das gerenderte HTML wird hier sicher ausgegeben -->
-      <div
-          class="markdown-body p-3 border-round surface-ground border-1 border-300 overflow-auto"
-          v-html="sanitizedHtml"
-      ></div>
-    </div>
-  </div>
+  <div
+      class="markdown-body p-3 overflow-auto"
+      v-html="sanitizedHtml"
+  ></div>
 </template>
 
 <script setup>
@@ -177,27 +169,8 @@ const sanitizedHtml = computed(() => {
 </script>
 
 <style scoped>
-.card {
-
-  margin: 2rem auto;
-  width: calc(100% - 2rem);
-
-  @media (min-width: 768px) {
-    max-width: 720px;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 960px;
-  }
-
-  @media (min-width: 1280px) {
-    max-width: 1200px;
-  }
-}
 .markdown-body {
   min-height: 200px;
-  background-color: white;
-  color: var(--p-text-color);
   line-height: 1.6;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-border">
     <DataTable
         :value="workspaces"
         lazy
@@ -85,35 +85,6 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-.card {
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background:
-      linear-gradient(var(--p-surface-700), var(--p-surface-700)) padding-box,
-      linear-gradient(to bottom,
-      var(--p-surface-600) 0%,      /* Oben: Hell */
-      var(--p-surface-700) 20%,     /* Übergang zu Dunkel an den Seiten */
-      var(--p-surface-700) 70%,     /* Bleibt Dunkel an den Seiten */
-      var(--p-surface-600) 100%     /* Unten: Wieder hell */
-      ) border-box;
-
-  margin: 2rem auto;
-  width: calc(100% - 2rem);
-
-  @media (min-width: 768px) {
-      max-width: 720px;
-  }
-
-  @media (min-width: 1024px) {
-      max-width: 960px;
-  }
-
-  @media (min-width: 1280px) {
-      max-width: 1200px;
-  }
-}
-
-
 .edit-icon {
   color: #E2E8F0;
   opacity: 0.5;

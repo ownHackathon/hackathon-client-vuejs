@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-content-center form-container">
-    <div class="flex justify-content-center form-content w-full md:w-8 lg:w-5">
+    <div class="flex justify-content-center form-content card-border w-full md:w-8 lg:w-5">
       <div class="form-content-inner w-full">
         <p v-if="title" class="text-center pb-5">
           <i v-if="icon" :class="icon" class="mr-2"></i>

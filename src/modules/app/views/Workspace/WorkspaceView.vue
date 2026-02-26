@@ -63,20 +63,5 @@ const loadWorkspace = (slug) => {
 </script>
 
 <style scoped>
-.card {
-  margin: 2rem auto;
-  width: calc(100% - 2rem);
 
-  @media (min-width: 768px) {
-    max-width: 720px;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 960px;
-  }
-
-  @media (min-width: 1280px) {
-    max-width: 1200px;
-  }
-}
 </style>

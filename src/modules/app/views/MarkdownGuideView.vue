@@ -1,16 +1,14 @@
 <template>
-  <FormCard title="Workspace Details bearbeiten">
-        <MarkdownViewer
-            :value="detailsText"
-        />
-  </FormCard>
+  <MarkdownViewer
+      :value="detailsText"
+      class="card border-round surface-50 border-1 border-200 "
+  />
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import MarkdownViewer from './../components/MarkdownViewer.vue'
+import {ref} from 'vue';
+import MarkdownViewer from './../components/MarkdownViewer.vue';
 import defaultMarkdown from './../../../../docs/markdown-guide.md?raw';
 
-// Der zentrale State, den beide Komponenten teilen
 const detailsText = ref(defaultMarkdown);
 </script>
