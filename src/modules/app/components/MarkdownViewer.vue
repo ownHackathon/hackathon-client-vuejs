@@ -60,7 +60,6 @@ const md = markdownIt({
 
 md.linkify.set({fuzzyEmail: false});
 md.use(abbr);
-md.use(deflist);
 md.use(footnote);
 md.use(sub);
 md.use(sup);
@@ -82,6 +81,7 @@ md.use(taskCheckbox, {
   divClass: 'task-item',
   idPrefix: 'cbx_'
 });
+md.use(deflist);
 md.use(attrs.default || attrs, {
   leftDelimiter: '{',
   rightDelimiter: '}',

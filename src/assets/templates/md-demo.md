@@ -168,8 +168,10 @@ Verwende Zahlen gefolgt von einem Punkt. Die tatsächliche Zahl ist egal, das Sy
 ```
 
 **Start-Offset:** Du kannst eine Liste bei einer beliebigen Zahl starten:
+
 57. Dieser Punkt startet bei 57
 1. Dieser wird automatisch zu 58
+
 ```
 57. Dieser Punkt startet bei 57
 1. Dieser wird automatisch zu 58
