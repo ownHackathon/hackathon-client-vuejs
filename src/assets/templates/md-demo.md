@@ -474,11 +474,18 @@ Fahre mit der Maus über HTML für die Erklärung.
 
 *   **Fußnoten**: Ein Hinweis im Text[^1].
 
+```
+**Fußnoten**: Ein Hinweis im Text[^1].
+```
+
 ---
 
 ## 11. Referenzen (Ganz unten im Dokument)
 
 [^1]: Dies ist die Erklärung der Fußnote mit automatischem Rücksprung-Link.
+```
+[^1]: Dies ist die Erklärung der Fußnote mit automatischem Rücksprung-Link.
+```
 
 ## 💡 Experten-Tipp: Erweitertes Styling
 Es kann die Darstellung von Elementen gezielt über geschweifte Klammern `{}` gesteuert werden.
