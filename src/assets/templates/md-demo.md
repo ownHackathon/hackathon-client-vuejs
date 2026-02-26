@@ -184,12 +184,28 @@ Ideal, um Begriffe zu erklären.
 Begriff
 : Die Erklärung startet mit einem Doppelpunkt `:` und einem Leerzeichen.
 
+```
+Begriff
+: Die Erklärung startet mit einem Doppelpunkt `:` und einem Leerzeichen.
+```
+
 Zweiter Begriff
 : Eine Erklärung kann auch
 über mehrere Zeilen gehen.
 
+```
+Zweiter Begriff
+: Eine Erklärung kann auch
+über mehrere Zeilen gehen.
+```
+
 Kompakter Stil (Alternative)
 ~ Erklärung mit Tilde `~` statt Doppelpunkt.
+
+```
+Kompakter Stil (Alternative)
+~ Erklärung mit Tilde `~` statt Doppelpunkt.
+```
 
 ### E. Verschachtelte Listen (Mix)
 Du kannst verschiedene Listentypen kombinieren:
@@ -312,6 +328,14 @@ Du kannst steuern, ob der Text in einer Spalte links, rechts oder mittig stehen 
 | Text linksbündig | Text in der Mitte | Text rechtsbündig |
 | Spalte 1 | Spalte 2 | Spalte 3 |
 
+```
+
+| Links (Standard) | Zentriert | Rechts |
+| :--- | :---: | ---: |
+| Text linksbündig | Text in der Mitte | Text rechtsbündig |
+| Spalte 1 | Spalte 2 | Spalte 3 |
+```
+
 ### B. Formatierung innerhalb von Zellen
 Du kannst fast alle anderen Markdown-Funktionen innerhalb einer Tabellenzelle nutzen:
 
@@ -323,6 +347,17 @@ Du kannst fast alle anderen Markdown-Funktionen innerhalb einer Tabellenzelle nu
 | **Notizen** | `Code-Snippet` | `` `Code-Snippet` `` |
 | **Wissenschaft** | X^2^ / H~2~O | `X^2^ / H~2~O` |
 
+```
+
+| Feature | Beispiel | Syntax |
+| :--- | :--- | :--- |
+| **Fett & Kursiv** | **Wichtig** & *dezent* | `**Wichtig** & *dezent*` |
+| **Markiert** | ==Highlight== | `==Highlight==` |
+| **Korrekturen** | ~~Alt~~ ++Neu++ | `~~Alt~~ ++Neu++` |
+| **Notizen** | `Code-Snippet` | `` `Code-Snippet` `` |
+| **Wissenschaft** | X^2^ / H~2~O | `X^2^ / H~2~O` |
+```
+
 ### C. Emojis & Links
 Tabellen eignen sich hervorragend für Status-Übersichten:
 
@@ -331,6 +366,15 @@ Tabellen eignen sich hervorragend für Status-Übersichten:
 | API Entwicklung | :rocket: Fertig | [Dokumentation](https://google.com) |
 | Frontend | :warning: In Arbeit | [Vorschau](https://google.com) |
 | Datenbank | :check: Stabil | [Logs](#) |
+
+```
+
+| Projekt | Status | Link |
+| :--- | :---: | :--- |
+| API Entwicklung | :rocket: Fertig | [Dokumentation](https://google.com) |
+| Frontend | :warning: In Arbeit | [Vorschau](https://google.com) |
+| Datenbank | :check: Stabil | [Logs](#) |
+```
 
 ### D. Tabellen einfärben & stylen (Plugin: Attrs)
 Du kannst der gesamten Tabelle oder einzelnen Inhalten Farben zuweisen.
@@ -342,6 +386,14 @@ Nutze die eckigen Klammern `[]` innerhalb der Zelle.
 | :--- | :--- |
 | Server-Update | [KRITISCH]{.text-red-500} |
 | Backup-Check | [Normal]{.text-green-500} |
+
+```
+
+| Aufgabe | Priorität |
+| :--- | :--- |
+| Server-Update | [KRITISCH]{.text-red-500} |
+| Backup-Check | [Normal]{.text-green-500} |
+```
 
 ## 8. Code-Blöcke
 Nutze drei Backticks und die Sprache für Syntax-Highlighting:
@@ -358,25 +410,40 @@ function hello() {
 
 ### Links:
 *   [Externer Link](https://google.com) (öffnet automatisch im neuen Tab mit Icon).
+```
+[Externer Link](https://google.com) (öffnet automatisch im neuen Tab mit Icon).
+```
 *   [Interner Anker](#1-überschriften-headings) (bleibt im selben Tab).
+```
+[Interner Anker](#1-überschriften-headings) (bleibt im selben Tab).
+```
 
 ### Bilder Standard:
 ![Beispielbild](https://picsum.photos/200/300)
+```
+![Beispielbild](https://picsum.photos/200/300)
+```
 
 ### Bilder skalieren (Erweiterte Syntax):
 Du kannst die Größe direkt hinter dem Bild in geschweiften Klammern angeben:
 
 #### Breite 300px:
 ![Beispiel](https://picsum.photos/500/500){width=300}
-`![Beispiel](https://picsum.photos/500/500){width=300}`
+```
+![Beispiel](https://picsum.photos/500/500){width=300}
+```
 
 #### Höhe 200px:
 ![Beispiel](https://picsum.photos/500/500){height=200}
-`![Beispiel](https://picsum.photos/500/500){height=200}`
+```
+![Beispiel](https://picsum.photos/500/500){height=200}
+```
 
 #### Feste Größe (300x150) & Schatten & Hovereffekt:
 ![Beispiel](https://picsum.photos/500/500){width=300 height=150 .shadow-3 .hover}
-`![Beispiel](https://picsum.photos/500/500){width=300 height=150 .shadow-3 .hover}`
+```
+![Beispiel](https://picsum.photos/500/500){width=300 height=150 .shadow-3 .hover}
+```
 
 ---
 
@@ -387,6 +454,11 @@ Du kannst die Größe direkt hinter dem Bild in geschweiften Klammern angeben:
 **Abkürzungen (Tooltips):**
 Fahre mit der Maus über HTML für die Erklärung.
 *[HTML]: Hyper Text Markup Language
+
+```
+Fahre mit der Maus über HTML für die Erklärung.
+*[HTML]: Hyper Text Markup Language
+```
 
 **Extras:**
 *   **Emojis klassisch**: 
