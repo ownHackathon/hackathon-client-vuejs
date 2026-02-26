@@ -301,11 +301,11 @@ Checklisten sind ideal, um Fortschritte zu tracken. Du startest sie mit `- [ ]` 
 
 ### B. Ganze Zeile einfärben
 Um einen kompletten Listenpunkt einzufärben, umschweife den Text mit `[]` und setze die Farbe an dass Ende der Zeile.
-- [ ] Diese Zeile ist komplett rot {.text-red-500}
+- [ ] Diese Zeile ist komplett rot{.text-red-500}
 - [x] [Diese Zeile ist komplett grün]{.text-green-500}
 - [ ] [Wichtiger Hinweis in Blau]{.text-blue-500 .font-bold}
 ```
-- [ ] Diese Zeile ist komplett rot {.text-red-500}
+- [ ] Diese Zeile ist komplett rot{.text-red-500}
 - [x] [Diese Zeile ist komplett grün]{.text-green-500}
 - [ ] [Wichtiger Hinweis in Blau]{.text-blue-500 .font-bold}
 ```
