@@ -94,9 +94,9 @@ const router = createRouter({
               ]
             },
             {
-              path: 'test',
-              name: 'app_test',
-              component: () => import('@app/views/TestView.vue')
+              path: 'markdown-guide',
+              name: 'app_md_guide',
+              component: () => import('@app/views/MarkdownGuideView.vue')
             },
 
           ],
