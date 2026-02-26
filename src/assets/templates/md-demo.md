@@ -548,12 +548,18 @@ Dabei wird zwischen zwei Anwendungsbereichen unterschieden:
 
 *   **Hintergrundfärbung via PrimeFlex-Klasse:**
     **Primärer Hintergrund**{.bg-primary}
-    `**Primärer Hintergrund**{.bg-primary}`
+```
+**Primärer Hintergrund**{.bg-primary}
+```
 
  *   **Textfarbe via CSS-Attribut:**
-     **Weißer Text**{style="color:white"}
-     `**Weißer Text**{style="color:white"}`
+     **Roter Text**{style="color:red"}
+ ```
+ **Roter Text**{style="color:red"}
+ ```
 
  *   **Selektive Formatierung im Textfluss:**
      Nur das Wort [Style]{style="color:red"} hervorheben.
-     `Nur das Wort [Style]{style="color:red"} hervorheben.`
+```
+Nur das Wort [Style]{style="color:red"} hervorheben.
+```
