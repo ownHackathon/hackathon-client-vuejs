@@ -7,67 +7,106 @@ Diese Seite dient als Referenz für alle verfügbaren Formatierungen mittels Mar
 ## 1. Überschriften (Headings) {#1-überschriften-headings}
 
 # h1 Überschrift
-`# h1 Überschrift`
+```
+# h1 Überschrift
+```
 ## h2 Überschrift
-`## h2 Überschrift`
+```
+## h2 Überschrift
+```
 ### h3 Überschrift
-`### h3 Überschrift`
+```
+### h3 Überschrift
+```
 #### h4 Überschrift
-`#### h4 Überschrift`
+```
+#### h4 Überschrift
+```
 ##### h5 Überschrift
-`##### h5 Überschrift`
+```
+##### h5 Überschrift
+```
 ###### h6 Überschrift
-`###### h6 Überschrift`
+```
+###### h6 Überschrift
+```
 
 ## Horizontale Linien
 ___
-`___`
+```
+___
+```
 
 ---
-`---`
+```
+---
+```
 
 ***
-`***`
+```
+***
+```
 
 ## 2. Textformatierung & Farben
 
 ### Standard-Hervorhebungen:
-*   **Fett**: `**Text**`
-*   *Kursiv*: `*Text*`
-*   ~~Durchgestrichen~~: `~~Text~~`
-*   ==Markiert==: `==Text==`
-*   ++Unterstrichen++: `++Text++`
+*   **Fett**
+```
+**Fett**
+```
+*   *Kursiv* 
+```
+*Kursiv*
+```
+*   ~~Durchgestrichen~~ 
+```
+~~Durchgestrichen~~
+```
+*   ==Markiert==
+```
+==Markiert==
+```
+*   ++Unterstrichen++
+```
+++Unterstrichen++
+```
 
 ### Farben & Styling (Universal-Werkzeug):
 Um Text zu färben, umschließe ihn einfach mit eckigen Klammern `[...]` und schreibe die Farbe dahinter. Das funktioniert für einzelne Wörter und ganze Sätze, ohne dass du auf Leerzeilen achten musst.
 
 *   **Einzelne Wörter:**
     Nur dieses [Wort ist blau]{.text-blue-500} im Satz.
-    `Nur dieses [Wort ist blau]{.text-blue-500} im Satz.`
+```
+Nur dieses [Wort ist blau]{.text-blue-500} im Satz.
+```
 
 *   **Ganze Sätze:**
     [Dieser komplette Satz soll rot leuchten.]{.text-red-500}
-    `[Dieser komplette Satz soll rot leuchten.]{.text-red-500}`
+```
+[Dieser komplette Satz soll rot leuchten.]{.text-red-500}
+```
 
 *   **Überschriften färben:**
     ### Eine blaue Überschrift {.text-blue-500}
-    `### Eine blaue Überschrift {.text-blue-500}`
+```
+### Eine blaue Überschrift {.text-blue-500}
+```
 
 *   **Ganze Zeile(n) einfärben:**
 
     Dieser Text ist rot. 
     Und dieser auch. {.text-red-500}
 
-    ```
-    *   **Ganze Zeile(n) einfärben:**
+```
+*   **Ganze Zeile(n) einfärben:**
 
-    Dieser Text ist rot.
-    Und dieser auch. {.text-red-500}
+Dieser Text ist rot.
+Und dieser auch. {.text-red-500}
 
-    `Dieser Text ist rot. {.text-red-500}`
-    ``` 
+`Dieser Text ist rot. {.text-red-500}`
+``` 
 
-    **[Wichtig:]{.text-red-700}** Es muss jeweils vor und nach der zu färbenden Zeile(n) sich eine Leerzeile befinden! 
+**[Wichtig:]{.text-red-700}** Es muss jeweils vor und nach der zu färbenden Zeile(n) sich eine Leerzeile befinden! 
 
 
 ### Wissenschaftliche Notation:
@@ -398,6 +437,14 @@ Nutze die eckigen Klammern `[]` innerhalb der Zelle.
 ## 8. Code-Blöcke
 Nutze drei Backticks und die Sprache für Syntax-Highlighting:
 
+
+```javascript
+function hello() {
+  console.log("Hallo Welt");
+}
+```
+
+```
 ```javascript
 function hello() {
   console.log("Hallo Welt");
