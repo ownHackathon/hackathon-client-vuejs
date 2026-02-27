@@ -33,15 +33,9 @@
             :error-message="$form.description?.error?.message"
         />
       </div>
+
       <div class="w-full">
-        <span class="description-text">Hier kann mittels Markdown der Workspace vollumfänglich Beschrieben und Präsentiert werden</span>
-        <CustomTextarea
-            id="details"
-            name="details"
-            label="Details"
-            rows="15"
-            v-model="payload.details"
-        />
+        <MarkdownPreviewTabbedTextarea />
       </div>
       <div class="w-full md:w-8 lg:w-8 align-self-center flex justify-content-center mt-4">
         <Button type="submit" class="submitButtonWith" label="Workspace Erstellen"/>
@@ -59,6 +53,7 @@ import {useValidator} from "@/utils/validator/validator.js";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
+import MarkdownPreviewTabbedTextarea from "@/modules/app/components/Input/MarkdownPreviewTabbedTextarea.vue";
 
 const validate = useValidator();
 const router = useRouter();
