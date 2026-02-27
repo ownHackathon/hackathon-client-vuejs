@@ -25,10 +25,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import DOMPurify from 'dompurify';
 
-const props = defineProps({
-  value: {type: String, default: ''},
-  label: {type: String, default: ''}
-});
+const model = defineModel();
 
 const containerTypes = ['info', 'warning', 'success', 'danger'];
 
@@ -122,7 +119,7 @@ md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 };
 
 const sanitizedHtml = computed(() => {
-  const rawHtml = md.render(props.value || '');
+  const rawHtml = md.render(model.value || '');
 
   return DOMPurify.sanitize(rawHtml, {
     ADD_TAGS: ['span', 'input', 'label', 'abbr', 'sup', 'sub', 'mark', 'ins', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'div', 'width', 'height'],

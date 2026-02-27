@@ -35,7 +35,38 @@
       </div>
 
       <div class="w-full">
-        <MarkdownPreviewTabbedTextarea />
+        <MarkdownPreviewTabbedTextarea
+            v-model="payload.details"
+        />
+      </div>
+      <div class="w-full pt-4">
+        <span class="font-semibold">Sichtbarkeit: </span>
+        <Dropdown v-model="payload.visibility" :options="visibilityOptions" optionLabel="label"  placeholder="Sichtbarkeit wählen" class="w-full md:w-14rem"
+        >
+          <!-- Bonus: Icons im Dropdown anzeigen -->
+          <template #option="slotProps">
+            <div class="flex flex-column gap-1 py-1">
+              <!-- Obere Zeile: Icon und Label -->
+              <div class="flex align-items-center">
+                <i :class="slotProps.option.icon" class="mr-2 text-primary"></i>
+                <span class="font-semibold">{{ slotProps.option.label }}</span>
+              </div>
+
+              <!-- Untere Zeile: Beschreibung in Grau -->
+              <div class="text-sm text-color-secondary" style="white-space: normal; max-width: 250px;">
+                {{ slotProps.option.description }}
+              </div>
+            </div>
+          </template>
+          <!-- Bonus: Icon im gewählten Wert anzeigen -->
+          <template #value="slotProps">
+            <div v-if="slotProps.value" class="flex align-items-center">
+              <i :class="slotProps.value.icon" class="mr-2"></i>
+              <div>{{ slotProps.value.label }}</div>
+            </div>
+            <span v-else>{{ slotProps.placeholder }}</span>
+          </template>
+        </Dropdown>
       </div>
       <div class="w-full md:w-8 lg:w-8 align-self-center flex justify-content-center mt-4">
         <Button type="submit" class="submitButtonWith" label="Workspace Erstellen"/>
@@ -54,14 +85,19 @@ import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import MarkdownPreviewTabbedTextarea from "@/modules/app/components/Input/MarkdownPreviewTabbedTextarea.vue";
+import { Visibility } from '@/constants/visibility.js';
 
 const validate = useValidator();
 const router = useRouter();
 const toast = useToast();
+
+const visibilityOptions = Object.values(Visibility);
+
 const payload = reactive({
   name: '',
   description: '',
   details: '',
+  visibility: Visibility.PUBLIC,
 });
 
 const resolver = ({values}) => {
@@ -87,8 +123,12 @@ const onFormSubmit = ({valid}) => {
 };
 
 async function submitlogin() {
+  const finalPayload = {
+    ...payload,
+    visibility: payload.visibility?.id || null
+  };
   await axios
-      .post("/api/workspace", payload,)
+      .post("/api/workspace", finalPayload)
       .then((response) => {
         if (response?.status === 201) {
           toast.add({severity: 'success', summary: 'Erfolgreich', detail: 'Workspace wurde erstellt', life: 3000});

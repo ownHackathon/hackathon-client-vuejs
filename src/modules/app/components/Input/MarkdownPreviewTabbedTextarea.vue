@@ -11,14 +11,16 @@
           <router-link :to="{ name: 'app_md_guide'}" target="_blank" class="inline-link">Markdown <sup><i class="pi pi-external-link" style="font-size: 0.5rem; color: white"></i></sup> </router-link>
           der Workspace vollumfänglich Beschrieben und Präsentiert werden</span>
         <CustomTextarea
+            id="Details"
+            name="Details"
             v-model="model"
             :rows="20"
             label="Details"
-        />
+         />
       </TabPanel>
       <TabPanel value="1">
         <MarkdownViewer
-            :value="model"
+            v-model="model"
         />
       </TabPanel>
       <TabPanel value="2">
@@ -30,12 +32,12 @@
 
 <script setup>
 import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
-import {ref} from "vue";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import MarkdownGuideView from "@/modules/app/views/MarkdownGuideView.vue";
 
-const model = ref('');
+const model = defineModel();
 </script>
+
 <style scoped>
 .description-text {
   font-size: 0.9rem;
