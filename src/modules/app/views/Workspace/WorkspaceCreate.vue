@@ -17,9 +17,10 @@
       <Button
           v-if="isDraft"
           label="Entwurf verwerfen"
+          icon="pi pi-trash"
           severity="help"
-          variant="outlined"
-          text
+          outlined
+          size="small"
           @click="discardDraft($event)"
       />
     </div>

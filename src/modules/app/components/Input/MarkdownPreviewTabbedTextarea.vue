@@ -30,8 +30,10 @@
         </ConfirmPopup>
         <Button
             label="Details leeren"
+            icon="pi pi-eraser"
             severity="help"
-            variant="text"
+            outlined
+            size="small"
             @click="discardDetails"
         />
 
