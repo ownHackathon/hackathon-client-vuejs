@@ -2,6 +2,27 @@
   <FormCard
       title="Workspace erstellen"
   >
+    <div v-if="isDraft" class="flex justify-content-end w-full mt-4">
+      <ConfirmPopup group="discardDraft">
+        <template #container="{ message, acceptCallback, rejectCallback }">
+          <div class="rounded p-4">
+            <span>{{ message.message }}</span>
+            <div class="flex items-center gap-2 mt-4">
+              <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success"  size="small"></Button>
+              <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
+            </div>
+          </div>
+        </template>
+      </ConfirmPopup>
+      <Button
+          v-if="isDraft"
+          label="Entwurf verwerfen"
+          severity="help"
+          variant="outlined"
+          text
+          @click="discardDraft($event)"
+      />
+    </div>
     <Form
         v-slot="$form"
         :payload
@@ -76,17 +97,21 @@
 import axios from "axios";
 import FormCard from "@/modules/app/components/FormCard.vue";
 import CustomInputText from "@/modules/app/components/Input/CustomInputText.vue";
-import {reactive} from "vue";
+import {computed, onMounted, reactive, watch} from "vue";
 import {useValidator} from "@/utils/validator/validator.js";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import MarkdownPreviewTabbedTextarea from "@/modules/app/components/Input/MarkdownPreviewTabbedTextarea.vue";
 import {Visibility} from '@/constants/visibility.js';
+import { useConfirm } from "primevue/useconfirm";
 
 const validate = useValidator();
 const router = useRouter();
 const toast = useToast();
+const STORAGE_KEY = 'workspace_draft';
+const confirm = useConfirm();
+
 
 const visibilityOptions = Object.values(Visibility);
 
@@ -95,6 +120,22 @@ const payload = reactive({
   description: '',
   details: '',
   visibility: Visibility.PUBLIC,
+});
+
+const getDefaultPayload = () => ({
+  name: '',
+  description: '',
+  details: '',
+  visibility: Visibility.PUBLIC,
+});
+
+
+const isDraft = computed(() => {
+  const n = payload.name ? payload.name.trim() : '';
+  const d = payload.description ? payload.description.trim() : '';
+  const det = payload.details ? payload.details.trim() : '';
+
+  return n.length > 0 || d.length > 0 || det.length > 0;
 });
 
 const resolver = ({values}) => {
@@ -113,11 +154,49 @@ const resolver = ({values}) => {
   };
 };
 
+onMounted(() => {
+  const saveDraft = localStorage.getItem(STORAGE_KEY);
+
+  if (saveDraft) {
+    const draft = JSON.parse(saveDraft);
+
+    if (!payload.name && !payload.description) {
+      Object.assign(payload, draft);
+      toast.add({
+        severity: 'info',
+        summary: 'Entwurf geladen',
+        detail: 'Dein letzter Schreibfortschritt wurde wiederhergestellt.',
+        life: 3000
+      });
+    }
+  }
+});
+
+watch(payload, (newVal) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal));
+}, {deep: true});
+
 const onFormSubmit = ({valid}) => {
   if (valid) {
     submitlogin();
   }
 };
+
+const discardDraft = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    group: 'discardDraft',
+    message: 'Soll der Entwurf verworfen werden?',
+    accept: () => {
+      Object.assign(payload, getDefaultPayload());
+      localStorage.removeItem(STORAGE_KEY);
+      toast.add({severity:'info', summary:'Bestätigt', detail:'Entwurf wurde verworfen', life: 3000});
+    },
+    reject: () => {
+      toast.add({severity:'error', summary:'Abgewiesen', detail:'Zurücksetzen abgebrochen', life: 3000});
+    }
+  });
+}
 
 async function submitlogin() {
   const finalPayload = {
@@ -128,6 +207,7 @@ async function submitlogin() {
       .post("/api/workspace", finalPayload)
       .then((response) => {
         if (response?.status === 201) {
+          localStorage.removeItem(STORAGE_KEY);
           toast.add({severity: 'success', summary: 'Erfolgreich', detail: 'Workspace wurde erstellt', life: 3000});
           router.push(`/app/workspace/${response.data.slug}`);
         }

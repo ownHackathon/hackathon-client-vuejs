@@ -17,6 +17,24 @@
             :rows="20"
             label="Details"
          />
+        <ConfirmPopup group="discardDetails">
+          <template #container="{ message, acceptCallback, rejectCallback }">
+            <div class="rounded p-4">
+              <span>{{ message.message }}</span>
+              <div class="flex items-center gap-2 mt-4">
+                <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success"  size="small"></Button>
+                <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
+              </div>
+            </div>
+          </template>
+        </ConfirmPopup>
+        <Button
+            label="Details leeren"
+            severity="help"
+            variant="text"
+            @click="discardDetails"
+        />
+
       </TabPanel>
       <TabPanel value="1">
         <MarkdownViewer
@@ -34,8 +52,27 @@
 import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import MarkdownGuideView from "@/modules/app/views/MarkdownGuideView.vue";
+import { useConfirm } from "primevue/useconfirm";
+import {useToast} from "primevue/usetoast";
+const confirm = useConfirm();
+const toast = useToast();
 
 const model = defineModel();
+
+const discardDetails = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    group: 'discardDetails',
+    message: 'Soll Details verworfen werden?',
+    accept: () => {
+      model.value='';
+      toast.add({severity:'info', summary:'Bestätigt', detail:'Details wurde verworfen', life: 3000});
+    },
+    reject: () => {
+      toast.add({severity:'error', summary:'Abgewiesen', detail:'Zurücksetzen abgebrochen', life: 3000});
+    }
+  });
+}
 </script>
 
 <style scoped>

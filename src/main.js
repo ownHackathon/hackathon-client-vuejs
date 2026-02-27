@@ -8,6 +8,7 @@ import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
 import Toast from 'primevue/toast'
 import  stylePreset from "./theme/lara-preset.js"
+import ConfirmationService from 'primevue/confirmationservice';
 
 // 3. Routing & API
 import App from '@/App.vue'
@@ -40,6 +41,7 @@ app.use(PrimeVue, {
   },
   ripple: false,
 })
+app.use(ConfirmationService);
 
 // Global Components
 // eslint-disable-next-line vue/multi-word-component-names
