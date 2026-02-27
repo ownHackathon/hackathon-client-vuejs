@@ -27,6 +27,11 @@ import DOMPurify from 'dompurify';
 
 const model = defineModel();
 
+const props = defineProps({
+  value: {type: String, default: ''},
+  label: {type: String, default: ''}
+});
+
 const containerTypes = ['info', 'warning', 'success', 'danger'];
 
 const md = markdownIt({
@@ -119,7 +124,7 @@ md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 };
 
 const sanitizedHtml = computed(() => {
-  const rawHtml = md.render(model.value || '');
+  const rawHtml = md.render(props.value || '');
 
   return DOMPurify.sanitize(rawHtml, {
     ADD_TAGS: ['span', 'input', 'label', 'abbr', 'sup', 'sub', 'mark', 'ins', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'div', 'width', 'height'],

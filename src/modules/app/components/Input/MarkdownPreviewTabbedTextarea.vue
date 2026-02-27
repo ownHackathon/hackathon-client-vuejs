@@ -20,7 +20,7 @@
       </TabPanel>
       <TabPanel value="1">
         <MarkdownViewer
-            v-model="model"
+            :value="model"
         />
       </TabPanel>
       <TabPanel value="2">
