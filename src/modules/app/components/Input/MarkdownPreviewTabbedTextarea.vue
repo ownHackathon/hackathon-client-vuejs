@@ -8,7 +8,8 @@
     <TabPanels>
       <TabPanel value="0">
         <span class="description-text">Hier kann mittels
-          <router-link :to="{ name: 'app_md_guide'}" target="_blank" class="inline-link">Markdown <sup><i class="pi pi-external-link" style="font-size: 0.5rem; color: white"></i></sup> </router-link>
+          <router-link :to="{ name: 'app_md_guide'}" target="_blank" class="inline-link">Markdown <sup><i class="pi pi-external-link"
+                                                                                                          style="font-size: 0.5rem; color: white"></i></sup> </router-link>
           der Workspace vollumfänglich Beschrieben und Präsentiert werden</span>
         <CustomTextarea
             id="Details"
@@ -16,26 +17,30 @@
             v-model="model"
             :rows="20"
             label="Details"
-         />
-        <ConfirmPopup group="discardDetails">
-          <template #container="{ message, acceptCallback, rejectCallback }">
-            <div class="rounded p-4">
-              <span>{{ message.message }}</span>
-              <div class="flex items-center gap-2 mt-4">
-                <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success"  size="small"></Button>
-                <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
-              </div>
-            </div>
-          </template>
-        </ConfirmPopup>
-        <Button
-            label="Details leeren"
-            icon="pi pi-eraser"
-            severity="help"
-            outlined
-            size="small"
-            @click="discardDetails"
         />
+        <div >
+          <ConfirmPopup group="discardDetails">
+            <template #container="{ message, acceptCallback, rejectCallback }">
+              <div class="rounded p-4">
+                <span>{{ message.message }}</span>
+                <div class="flex items-center gap-2 mt-4">
+                  <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
+                  <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
+                </div>
+              </div>
+            </template>
+          </ConfirmPopup>
+          <Button
+              label="Details leeren"
+              icon="pi pi-eraser"
+              severity="help"
+              outlined
+              size="small"
+              @click="discardDetails"
+              :class="isDetails ? 'opacity-100' : 'opacity-0 pointer-events-none'"
+              class="transition-opacity duration-200"
+          />
+        </div>
 
       </TabPanel>
       <TabPanel value="1">
@@ -44,7 +49,7 @@
         />
       </TabPanel>
       <TabPanel value="2">
-        <MarkdownGuideView />
+        <MarkdownGuideView/>
       </TabPanel>
     </TabPanels>
   </Tabs>
@@ -54,12 +59,18 @@
 import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import MarkdownGuideView from "@/modules/app/views/MarkdownGuideView.vue";
-import { useConfirm } from "primevue/useconfirm";
+import {useConfirm} from "primevue/useconfirm";
 import {useToast} from "primevue/usetoast";
+import {computed} from "vue";
+
 const confirm = useConfirm();
 const toast = useToast();
 
 const model = defineModel();
+
+const isDetails = computed(() => {
+  return model?.value.length > 0;
+});
 
 const discardDetails = (event) => {
   confirm.require({
@@ -67,14 +78,14 @@ const discardDetails = (event) => {
     group: 'discardDetails',
     message: 'Soll Details verworfen werden?',
     accept: () => {
-      model.value='';
-      toast.add({severity:'info', summary:'Bestätigt', detail:'Details wurde verworfen', life: 3000});
+      model.value = '';
+      toast.add({severity: 'info', summary: 'Bestätigt', detail: 'Details wurde verworfen', life: 3000});
     },
     reject: () => {
-      toast.add({severity:'error', summary:'Abgewiesen', detail:'Zurücksetzen abgebrochen', life: 3000});
+      toast.add({severity: 'error', summary: 'Abgewiesen', detail: 'Zurücksetzen abgebrochen', life: 3000});
     }
   });
-}
+};
 </script>
 
 <style scoped>

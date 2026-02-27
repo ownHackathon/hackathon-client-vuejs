@@ -2,7 +2,7 @@
   <FormCard
       title="Workspace erstellen"
   >
-    <div v-if="isDraft" class="flex justify-content-end w-full mt-4">
+    <div class="flex justify-content-end w-full mt-4">
       <ConfirmPopup group="discardDraft">
         <template #container="{ message, acceptCallback, rejectCallback }">
           <div class="rounded p-4">
@@ -15,13 +15,14 @@
         </template>
       </ConfirmPopup>
       <Button
-          v-if="isDraft"
           label="Entwurf verwerfen"
           icon="pi pi-trash"
           severity="help"
           outlined
           size="small"
           @click="discardDraft($event)"
+          :class="isDraft ? 'opacity-100' : 'opacity-0 pointer-events-none'"
+          class="transition-opacity duration-200"
       />
     </div>
     <Form
@@ -135,8 +136,9 @@ const isDraft = computed(() => {
   const n = payload.name ? payload.name.trim() : '';
   const d = payload.description ? payload.description.trim() : '';
   const det = payload.details ? payload.details.trim() : '';
+  const visChanged = payload.visibility?.id !== Visibility.PUBLIC.id;
 
-  return n.length > 0 || d.length > 0 || det.length > 0;
+  return n.length > 0 || d.length > 0 || det.length > 0 || visChanged;
 });
 
 const resolver = ({values}) => {
@@ -174,7 +176,11 @@ onMounted(() => {
 });
 
 watch(payload, (newVal) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal));
+  if (isDraft.value) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newVal));
+  } else {
+    localStorage.removeItem(STORAGE_KEY);
+  }
 }, {deep: true});
 
 const onFormSubmit = ({valid}) => {
