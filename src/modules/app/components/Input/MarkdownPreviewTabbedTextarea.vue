@@ -43,4 +43,16 @@ const model = defineModel();
   font-size: 0.9rem;
   color: var(--p-gray-400);
 }
+
+:deep(.p-tablist) {
+  background-color: var(--p-surface-700);
+}
+
+:deep(.p-tab-active) {
+  background-color: var(--p-surface-800);
+}
+
+:deep(.p-tabpanels) {
+  background-color: var(--p-surface-700);
+}
 </style>

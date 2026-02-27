@@ -5,15 +5,16 @@
         <InputGroupAddon v-if="icon">
           <i :class="icon"></i>
         </InputGroupAddon>
-        <FloatLabel variant="on">
+        <FloatLabel variant="on" class="w-full">
           <InputText
               :id="id"
               :name="name"
               v-model="model"
               :type="type"
-              class="inputTextWidth"
               size="small"
               fluid
+              class="w-full"
+              style="max-width: 80ch"
               :invalid="!!errorMessage"
           />
           <label :for="id">{{ label }}</label>

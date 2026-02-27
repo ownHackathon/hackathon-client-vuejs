@@ -1,5 +1,6 @@
 <template>
-  <FormCard>
+  <FormCard
+  >
     <Form
         v-slot="$form"
         :payload
@@ -22,6 +23,7 @@
           label="E-Mail"
           icon="pi pi-at"
           help-text="demouser@ownhackathon.de"
+          style="max-width: 340px"
           :error-message="$form.email?.error?.message"
       />
       <CustomPasswordInput

@@ -10,12 +10,12 @@
               :id="id"
               :name="name"
               v-model="model"
-              class="inputTextWidth"
+
               :rows="rows"
               :autoResize="autoResize"
               fluid
               :invalid="!!errorMessage"
-              style="max-width: 80ch"
+              style="width:100%; max-width: 120ch"
           />
           <label :for="id">{{ label }}</label>
         </FloatLabel>

@@ -17,6 +17,7 @@
             class="w-full"
             :invalid="!!errorMessage"
             :inputClass="'w-full'"
+            style="max-width: 300px"
         >
           <template #header>
             <slot name="header">

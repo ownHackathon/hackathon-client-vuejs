@@ -19,6 +19,7 @@
             label="Name"
             type="text"
             v-model="payload.name"
+            style="max-width: 65ch"
             :error-message="$form.name?.error?.message"
         />
       </div>
@@ -28,8 +29,9 @@
             id="description"
             name="description"
             label="Kurzbeschreibung"
-            rows="2"
+            rows="3"
             v-model="payload.description"
+            style="max-width: 85ch"
             :error-message="$form.description?.error?.message"
         />
       </div>
@@ -41,24 +43,19 @@
       </div>
       <div class="w-full pt-4">
         <span class="font-semibold">Sichtbarkeit: </span>
-        <Dropdown v-model="payload.visibility" :options="visibilityOptions" optionLabel="label"  placeholder="Sichtbarkeit wählen" class="w-full md:w-14rem"
-        >
-          <!-- Bonus: Icons im Dropdown anzeigen -->
+        <Dropdown v-model="payload.visibility" :options="visibilityOptions" optionLabel="label" placeholder="Sichtbarkeit wählen" class="w-full md:w-14rem">
           <template #option="slotProps">
             <div class="flex flex-column gap-1 py-1">
-              <!-- Obere Zeile: Icon und Label -->
               <div class="flex align-items-center">
                 <i :class="slotProps.option.icon" class="mr-2 text-primary"></i>
                 <span class="font-semibold">{{ slotProps.option.label }}</span>
               </div>
 
-              <!-- Untere Zeile: Beschreibung in Grau -->
               <div class="text-sm text-color-secondary" style="white-space: normal; max-width: 250px;">
                 {{ slotProps.option.description }}
               </div>
             </div>
           </template>
-          <!-- Bonus: Icon im gewählten Wert anzeigen -->
           <template #value="slotProps">
             <div v-if="slotProps.value" class="flex align-items-center">
               <i :class="slotProps.value.icon" class="mr-2"></i>
@@ -85,7 +82,7 @@ import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import MarkdownPreviewTabbedTextarea from "@/modules/app/components/Input/MarkdownPreviewTabbedTextarea.vue";
-import { Visibility } from '@/constants/visibility.js';
+import {Visibility} from '@/constants/visibility.js';
 
 const validate = useValidator();
 const router = useRouter();
