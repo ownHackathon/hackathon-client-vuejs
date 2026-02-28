@@ -185,7 +185,7 @@ watch(payload, (newVal) => {
 
 const onFormSubmit = ({valid}) => {
   if (valid) {
-    submitlogin();
+    submitWorkspaceCreate();
   }
 };
 
@@ -205,7 +205,7 @@ const discardDraft = (event) => {
   });
 }
 
-async function submitlogin() {
+async function submitWorkspaceCreate() {
   const finalPayload = {
     ...payload,
     visibility: payload.visibility?.id || null

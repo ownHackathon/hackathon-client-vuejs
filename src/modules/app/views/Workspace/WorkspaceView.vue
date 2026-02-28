@@ -5,6 +5,11 @@
   <div v-else class="card">
     <div class="text-center text-primary-0"><p style="font-size: 1.5rem">{{ workspace.name }}</p></div>
     <div class="text-center text-primary-0"><p>{{ workspace.description }}</p></div>
+    <div class="text-primary-0">
+      <MarkdownViewer
+          :value="workspace.details"
+      />
+    </div>
     <div class="text-right">
       <p>
         <router-link to="">{{ workspace.owner }}</router-link>
@@ -26,6 +31,7 @@
 import {onMounted, ref} from "vue";
 import {WorkspaceService} from '@app/service/WorkspaceService';
 import NotFoundView from "@/modules/app/views/NotFoundView.vue";
+import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
 
 const props = defineProps({
   slug: {
@@ -39,6 +45,7 @@ const workspace = ref({
       description: '',
       owner: '',
       ownerUuid: '',
+      details: ''
     }
 );
 const notFound = ref(false);
