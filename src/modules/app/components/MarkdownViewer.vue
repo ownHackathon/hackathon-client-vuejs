@@ -30,6 +30,7 @@ const props = defineProps({
   label: {type: String, default: ''}
 });
 
+
 const containerTypes = ['info', 'warning', 'success', 'danger'];
 
 const md = markdownIt({
@@ -130,6 +131,7 @@ const sanitizedHtml = computed(() => {
     FORCE_BODY: true
   });
 });
+
 </script>
 
 <style scoped>

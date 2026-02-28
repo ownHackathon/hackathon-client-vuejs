@@ -9,13 +9,13 @@ export const Visibility = Object.freeze({
     id: 2,
     label: 'intern',
     description: 'Wird nicht gelistet. Nur der Eigentümer kann Mitglieder hinzufügen. Nur Mitglieder können den Inhalt sehen.',
-    icon: 'pi pi-eye-slash'
+    icon: 'pi pi-shield'
   },
   INVITE_ONLY: {
     id: 3,
     label: 'Einladung erforderlich',
     description: 'Wird nicht gelistet. Der Beitritt erfordert eine Einladung. Nur Mitglieder können den Inhalt sehen.',
-    icon: 'pi pi-receipt'
+    icon: 'pi pi-key'
   },
   UNLISTED: {
     id: 4,
