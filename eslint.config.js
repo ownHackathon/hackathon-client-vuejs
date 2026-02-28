@@ -12,6 +12,19 @@ export default [
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/public/**'],
   },
 
+
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+  {
+    name: 'app/custom-rules',
+    rules: {
+      'no-unused-vars': ['error', {
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+        // DIESE ZEILE IST ENTSCHEIDEND FÜR catch (__)
+        'caughtErrorsIgnorePattern': '^_'
+      }],
+      'no-empty': ['error', { 'allowEmptyCatch': true }]
+    }
+  }
 ]
