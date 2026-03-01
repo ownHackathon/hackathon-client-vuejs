@@ -1,30 +1,5 @@
 <template>
-  <FormCard
-      innerClass="pt-0"
-  >
-    <div class="flex justify-content-end w-full mt-4">
-      <ConfirmPopup group="discardDraft">
-        <template #container="{ message, acceptCallback, rejectCallback }">
-          <div class="rounded p-4">
-            <span>{{ message.message }}</span>
-            <div class="flex items-center gap-2 mt-4">
-              <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
-              <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
-            </div>
-          </div>
-        </template>
-      </ConfirmPopup>
-      <Button
-          label="Entwurf verwerfen"
-          icon="pi pi-trash"
-          severity="help"
-          outlined
-          size="small"
-          @click="discardDraft($event)"
-          :class="isDraft ? 'opacity-100' : 'opacity-0 pointer-events-none'"
-          class="transition-opacity duration-200"
-      />
-    </div>
+  <FormCard>
     <div class="text-center p-3">
       <span style="color: white; font-size: 1.5rem">Workspace erstellen</span>
     </div>
@@ -102,7 +77,17 @@
       </div>
       <div class="flex justify-content-end align-items-center gap-2 mt-6 pb-4">
 
-        <!-- Sekundäre Aktion -->
+        <ConfirmPopup group="discardDraft">
+          <template #container="{ message, acceptCallback, rejectCallback }">
+            <div class="rounded p-4">
+              <span>{{ message.message }}</span>
+              <div class="flex items-center gap-2 mt-4">
+                <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
+                <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
+              </div>
+            </div>
+          </template>
+        </ConfirmPopup>
         <Button
             v-if="isDraft"
             label="Entwurf verwerfen"
