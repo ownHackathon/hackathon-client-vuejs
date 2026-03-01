@@ -1,6 +1,6 @@
 <template>
   <FormCard
-      title="Workspace erstellen"
+      innerClass="pt-0"
   >
     <div class="flex justify-content-end w-full mt-4">
       <ConfirmPopup group="discardDraft">
@@ -25,6 +25,9 @@
           class="transition-opacity duration-200"
       />
     </div>
+    <div class="text-center p-3">
+      <span style="color: white; font-size: 1.5rem">Workspace erstellen</span>
+    </div>
     <Form
         v-slot="$form"
         :payload
@@ -35,7 +38,7 @@
         class="flex flex-column gap-1"
     >
       <div class="w-full md:w-8 lg:w-8">
-        <span class="description-text">Ein eindeutiger Name für den Workspace</span>
+        <div class="description-text pl-2">Ein eindeutiger Name für den Workspace</div>
         <CustomInputText
             id="name"
             name="name"
@@ -44,10 +47,11 @@
             v-model="payload.name"
             style="max-width: 65ch"
             :error-message="$form.name?.error?.message"
+
         />
       </div>
       <div class="w-full md:w-8 lg:w-8">
-        <span class="description-text">Eine kurze Beschreibung welche in Listen erscheint</span>
+        <div class="description-text pl-2">Eine kurze Beschreibung welche in Listen erscheint</div>
         <CustomTextarea
             id="description"
             name="description"
@@ -72,9 +76,9 @@
           </template>
         </MarkdownPreviewTabbedTextarea>
       </div>
-      <div class="w-full pt-4">
-        <span class="font-semibold">Sichtbarkeit: </span>
-        <Dropdown v-model="payload.visibility" :options="visibilityOptions" optionLabel="label" placeholder="Sichtbarkeit wählen" class="w-full md:w-14rem">
+      <div class="w-full">
+        <p class="font-semibold">Sichtbarkeit: </p>
+        <Dropdown v-model="payload.visibility" :options="visibilityOptions" optionLabel="label" placeholder="Sichtbarkeit wählen" class="w-16rem">
           <template #option="slotProps">
             <div class="flex flex-column gap-1 py-1">
               <div class="flex align-items-center">
@@ -96,8 +100,26 @@
           </template>
         </Dropdown>
       </div>
-      <div class="w-full md:w-8 lg:w-8 align-self-center flex justify-content-center mt-4">
-        <Button type="submit" class="submitButtonWith" label="Workspace Erstellen"/>
+      <div class="flex justify-content-end align-items-center gap-2 mt-6 pb-4">
+
+        <!-- Sekundäre Aktion -->
+        <Button
+            v-if="isDraft"
+            label="Entwurf verwerfen"
+            icon="pi pi-trash"
+            severity="secondary"
+            text
+            size="small"
+            @click="discardDraft($event)"
+        />
+
+        <!-- Primäre Aktion -->
+        <Button
+            type="submit"
+            label="Workspace erstellen"
+            icon="pi pi-check"
+            class="px-5"
+        />
       </div>
     </Form>
   </FormCard>

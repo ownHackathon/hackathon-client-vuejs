@@ -4,41 +4,41 @@
       <Tab value="0">Schreiben</Tab>
       <Tab value="1">Vorschau</Tab>
     </TabList>
-    <TabPanels>
+    <TabPanels class="p-0 pt-4">
       <TabPanel value="0">
-        <div class="description-text pl-2">
-         <slot name="description" />
-        </div>
-        <CustomTextarea
-            id="Details"
-            name="Details"
-            v-model="model"
-            :rows="20"
-            label="Details"
-        />
-        <div>
-          <ConfirmPopup group="discardDetails">
-            <template #container="{ message, acceptCallback, rejectCallback }">
-              <div class="rounded p-4">
-                <span>{{ message.message }}</span>
-                <div class="flex items-center gap-2 mt-4">
-                  <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
-                  <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
-                </div>
+      <div class="description-text pl-2">
+        <slot name="description"/>
+      </div>
+      <CustomTextarea
+          id="Details"
+          name="Details"
+          v-model="model"
+          :rows="20"
+          label="Details"
+      />
+      <div>
+        <ConfirmPopup group="discardDetails">
+          <template #container="{ message, acceptCallback, rejectCallback }">
+            <div class="rounded p-4">
+              <span>{{ message.message }}</span>
+              <div class="flex items-center gap-2 mt-4">
+                <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
+                <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
               </div>
-            </template>
-          </ConfirmPopup>
-          <Button
-              label="Details leeren"
-              icon="pi pi-eraser"
-              severity="help"
-              outlined
-              size="small"
-              @click="discardDetails"
-              :class="isDetails ? 'opacity-100' : 'opacity-0 pointer-events-none'"
-              class="transition-opacity duration-200"
-          />
-        </div>
+            </div>
+          </template>
+        </ConfirmPopup>
+        <Button
+            label="Details leeren"
+            icon="pi pi-eraser"
+            severity="help"
+            outlined
+            size="small"
+            @click="discardDetails"
+            v-show="model && model.length > 0"
+            class="transition-all"
+        />
+      </div>
 
       </TabPanel>
       <TabPanel value="1">

@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="field pt-1 sm:pt-3">
       <InputGroup>
         <InputGroupAddon v-if="icon">
@@ -25,7 +24,6 @@
         {{ errorMessage }}
       </Message>
     </div>
-  </div>
 </template>
 
 <script setup>
