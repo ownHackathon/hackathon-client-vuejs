@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4">
+  <div class="pt-1 sm:pt-3">
   <div class="field mb-3">
     <InputGroup>
       <InputGroupAddon v-if="icon">
@@ -10,8 +10,8 @@
             :id="id"
             :name="name"
             v-model="model"
-            :toggleMask="toggleMask"
-            :feedback="feedback"
+            toggleMask
+            :feedback="false"
             size="small"
             fluid
             class="w-full"
@@ -19,31 +19,7 @@
             :inputClass="'w-full'"
             style="max-width: 300px"
         >
-          <template #header>
-            <slot name="header">
-              <div v-if="showRules">
-                <div class="font-semibold text-xm mb-4">Eingabe vom Passwort</div>
-                <hr>
-              </div>
-            </slot>
-          </template>
-          <template #content>
-            <slot name="content">
-              <div v-if="showRules">
-                <div class="font-semibold text-xm mb-4">Bitte beachten</div>
-              </div>
-            </slot>
-          </template>
-          <template #footer>
-            <slot name="footer">
-              <div v-if="showRules">
-                <ul class="pl-2 ml-2 my-0 leading-normal">
-                  <li>Sage keinem anderen dein Passwort</li>
-                  <li>Wir werden dich nie nach deinem Passwort fragen!</li>
-                </ul>
-              </div>
-            </slot>
-          </template>
+
         </Password>
         <label :for="id">{{ label }}</label>
       </FloatLabel>
@@ -79,5 +55,32 @@ defineProps({
 <style scoped>
 :deep(.p-password-input) {
   width: 100%;
+}
+
+/* 1. Sicherstellen, dass das Input-Feld rechts Platz für das Icon lässt */
+:deep(.p-password-input) {
+  padding-right: 2.5rem !important;
+}
+
+/* 2. Das Icon (oder der Button-Container) muss über dem Input liegen */
+:deep(.p-password-toggle-mask-icon),
+:deep(.p-password-mask-icon),
+:deep(.p-icon-field-icon) {
+  z-index: 10 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important; /* Sicherstellen, dass es klickbar bleibt */
+  color: var(--p-text-color) !important; /* Explizite Farbe setzen */
+}
+
+/* 3. PrimeVue v4 spezifisch: Falls das Icon in einem Button liegt */
+:deep(.p-password-mask-icon) {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+:deep(input::-ms-reveal),
+:deep(input::-ms-clear) {
+  display: none !important;
 }
 </style>

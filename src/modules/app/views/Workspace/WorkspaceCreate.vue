@@ -31,7 +31,7 @@
         :resolver
         @submit="onFormSubmit"
         :validateOnValueUpdate="false"
-        :validateOnBlur="true"
+        :validateOnSubmit="true"
         class="flex flex-column gap-1"
     >
       <div class="w-full md:w-8 lg:w-8">
@@ -141,14 +141,14 @@ const isDraft = computed(() => {
   return n.length > 0 || d.length > 0 || det.length > 0 || visChanged;
 });
 
-const resolver = ({values}) => {
+const resolver = () => {
   const errors = {};
 
-  if (!validate.workspaceName(values.name)) {
+  if (!validate.workspaceName(payload.name)) {
     errors.name = [{message: 'mindestens 3 Zeichen und maximal 64 Zeichen'}];
   }
 
-  if (!validate.workspaceDescription(values.description)) {
+  if (!validate.workspaceDescription(payload.description)) {
     errors.description = [{message: 'maximal 255 Zeichen'}];
   }
 

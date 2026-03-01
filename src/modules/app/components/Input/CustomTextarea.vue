@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-1" >
+  <div class="pt-1 sm:pt-3" >
     <div class="field mb-3 w-full">
       <InputGroup>
         <InputGroupAddon v-if="icon">

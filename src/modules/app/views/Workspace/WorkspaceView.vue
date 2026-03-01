@@ -6,6 +6,7 @@
     <div class="text-center text-primary-0"><p style="font-size: 1.5rem">{{ workspace.name }}</p></div>
     <div class="text-center text-primary-0"><p>{{ workspace.description }}</p></div>
     <Fieldset
+        v-if="isDetails"
         :legend="isCollapsed ? 'Details einblenden' : 'Details ausblenden'"
         :toggleable="true"
         @toggle="(e) => isCollapsed = e.value"
@@ -43,7 +44,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {WorkspaceService} from '@app/service/WorkspaceService';
 import NotFoundView from "@/modules/app/views/NotFoundView.vue";
 import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
@@ -66,6 +67,12 @@ const workspace = ref({
     }
 );
 const notFound = ref(false);
+
+const isDetails = computed(() => {
+  const details = workspace.value.details ? workspace.value.details?.trim() : '';
+
+  return details.length > 0;
+})
 
 onMounted(() => {
   const data = history.state;

@@ -7,7 +7,7 @@
         :resolver
         @submit="onFormSubmit"
         :validateOnValueUpdate="false"
-        :validateOnBlur="true"
+        :validateOnSubmit="true"
     >
       <div class=" text-white text-center">
         <h1>Willkommen</h1>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-content-center form-container">
+  <div class="flex justify-content-center form-container pb-2">
     <div class="flex justify-content-center form-content card-border w-full md:w-10 lg:w-8">
       <div class="form-content-inner w-full">
         <p v-if="title" class="text-center pb-5">
