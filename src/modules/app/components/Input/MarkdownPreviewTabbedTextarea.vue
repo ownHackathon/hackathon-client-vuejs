@@ -6,11 +6,9 @@
     </TabList>
     <TabPanels>
       <TabPanel value="0">
-        <span class="description-text">
-          Nutze
-          <router-link :to="{ name: 'app_md_guide'}" target="_blank" class="inline-link">Markdown <sup><i class="pi pi-external-link" style="font-size: 0.5rem; color: white"></i></sup></router-link>
-          , um deinen Workspace individuell zu gestalten und umfassend zu beschreiben.
-        </span>
+        <div class="description-text pl-2">
+         <slot name="description" />
+        </div>
         <CustomTextarea
             id="Details"
             name="Details"

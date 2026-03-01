@@ -8,7 +8,7 @@
           <div class="rounded p-4">
             <span>{{ message.message }}</span>
             <div class="flex items-center gap-2 mt-4">
-              <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success"  size="small"></Button>
+              <Button label="verwerfen" @click="acceptCallback" variant="outlined" severity="success" size="small"></Button>
               <Button label="abbrechen" variant="outlined" @click="rejectCallback" severity="warn" size="small" text></Button>
             </div>
           </div>
@@ -62,7 +62,15 @@
       <div class="w-full">
         <MarkdownPreviewTabbedTextarea
             v-model="payload.details"
-        />
+        >
+          <template #description>
+            Nutze
+            <router-link :to="{ name: 'app_md_guide'}" target="_blank" class="inline-link">
+              Markdown <sup><i class="pi pi-external-link" style="font-size: 0.5rem; color: white"></i></sup>
+            </router-link>
+            , um deinen Workspace individuell zu gestalten und umfassend zu beschreiben.
+          </template>
+        </MarkdownPreviewTabbedTextarea>
       </div>
       <div class="w-full pt-4">
         <span class="font-semibold">Sichtbarkeit: </span>
@@ -106,7 +114,7 @@ import {useToast} from "primevue/usetoast";
 import {useRouter} from "vue-router";
 import MarkdownPreviewTabbedTextarea from "@/modules/app/components/Input/MarkdownPreviewTabbedTextarea.vue";
 import {Visibility} from '@/constants/visibility.js';
-import { useConfirm } from "primevue/useconfirm";
+import {useConfirm} from "primevue/useconfirm";
 
 const validate = useValidator();
 const router = useRouter();
@@ -197,13 +205,13 @@ const discardDraft = (event) => {
     accept: () => {
       Object.assign(payload, getDefaultPayload());
       localStorage.removeItem(STORAGE_KEY);
-      toast.add({severity:'info', summary:'Bestätigt', detail:'Entwurf wurde verworfen', life: 3000});
+      toast.add({severity: 'info', summary: 'Bestätigt', detail: 'Entwurf wurde verworfen', life: 3000});
     },
     reject: () => {
-      toast.add({severity:'error', summary:'Abgewiesen', detail:'Zurücksetzen abgebrochen', life: 3000});
+      toast.add({severity: 'error', summary: 'Abgewiesen', detail: 'Zurücksetzen abgebrochen', life: 3000});
     }
   });
-}
+};
 
 async function submitWorkspaceCreate() {
   const finalPayload = {
