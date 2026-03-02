@@ -40,6 +40,14 @@
     <div>
       <p>Liste verfügbarer Events</p>
     </div>
+    <div class="flex justify-content-end">
+      <Button
+          label="nach oben"
+          variant="text"
+          @click="scrollToTop"
+          icon="pi pi-arrow-up"
+      />
+    </div>
   </div>
 </template>
 
@@ -73,6 +81,13 @@ const isDetails = computed(() => {
 
   return details.length > 0;
 })
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
 
 onMounted(() => {
   const data = history.state;

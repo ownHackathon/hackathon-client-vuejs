@@ -3,6 +3,15 @@ import {useAuthStore} from "@/stores/AuthStore.js";
 
 const router = createRouter({
       history: createWebHistory('/'),
+      scrollBehavior(to) {
+        if (to.hash) {
+          return {
+            el: to.hash,
+            behavior: 'smooth', // Ermöglicht flüssiges Scrollen
+          }
+        }
+        return {top: 0}
+      },
       routes: [
         {
           component: () => import('@app/components/AppView.vue'),

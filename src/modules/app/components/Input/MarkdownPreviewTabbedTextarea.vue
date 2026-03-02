@@ -55,16 +55,12 @@ import MarkdownViewer from "@/modules/app/components/MarkdownViewer.vue";
 import CustomTextarea from "@/modules/app/components/Input/CustomTextarea.vue";
 import {useConfirm} from "primevue/useconfirm";
 import {useToast} from "primevue/usetoast";
-import {computed} from "vue";
+
 
 const confirm = useConfirm();
 const toast = useToast();
 
 const model = defineModel();
-
-const isDetails = computed(() => {
-  return model?.value.length > 0;
-});
 
 const discardDetails = (event) => {
   confirm.require({
