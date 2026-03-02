@@ -74,11 +74,6 @@ md.use(taskCheckbox, {
   idPrefix: 'cbx_'
 });
 md.use(deflist);
-md.use(attrs.default || attrs, {
-  leftDelimiter: '{',
-  rightDelimiter: '}',
-  allowedAttributes: []
-});
 containerTypes.forEach(type => {
   md.use(container, type, {
     validate: function (params) {
@@ -94,6 +89,11 @@ containerTypes.forEach(type => {
       }
     }
   });
+});
+md.use(attrs.default || attrs, {
+  leftDelimiter: '{',
+  rightDelimiter: '}',
+  allowedAttributes: []
 });
 
 md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
