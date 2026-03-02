@@ -139,6 +139,13 @@ const sanitizedHtml = computed(() => {
   min-height: 200px;
   line-height: 1.6;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+
+  /* --- DIESE ZEILEN HINZUFÜGEN --- */
+  width: 100%;
+  overflow-wrap: break-word; /* Bricht lange Wörter (wie URLs) um */
+  word-wrap: break-word;     /* Fallback für ältere Browser */
+  word-break: break-word;    /* Verhindert das Ausbrechen von Textfluss */
+  box-sizing: border-box;    /* Padding wird in die Breite eingerechnet */
 }
 
 .markdown-body :deep(h1), .markdown-body :deep(h2) {

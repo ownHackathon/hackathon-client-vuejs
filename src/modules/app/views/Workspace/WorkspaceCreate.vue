@@ -76,7 +76,6 @@
         </Dropdown>
       </div>
       <div class="flex justify-content-end align-items-center gap-2 mt-6 pb-4">
-
         <ConfirmPopup group="discardDraft">
           <template #container="{ message, acceptCallback, rejectCallback }">
             <div class="rounded p-4">
