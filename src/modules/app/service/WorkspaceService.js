@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const WorkspaceService = {
   async getOwnWorkspaces(params) {
-    const {first, rows} = params; // first = Startindex (z.B. 0), rows = Anzahl pro Seite (z.B. 5)
+    const {first, rows} = params;
     const page = Math.floor(first / rows) + 1;
 
     const ownWorkspaces = [];

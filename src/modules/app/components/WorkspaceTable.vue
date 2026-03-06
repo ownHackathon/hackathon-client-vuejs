@@ -31,29 +31,25 @@
           </div>
         </template>
       </Column>
-      <Column field="actions" header="" style="width: 4rem; text-align: end; white-space: nowrap;">
-        <template #body="{ data }">
-          <div style="white-space: normal; word-wrap: break-word;">
-            <router-link :to="`/app/workspace/${data.slug}`" class="font-bold text-primary hover:underline">
-              <i class="pi pi-file-edit edit-icon"/>
-            </router-link>
-          </div>
-        </template>
-      </Column>
     </DataTable>
   </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import {WorkspaceService} from '@app/service/WorkspaceService';
-import router from "@/utils/router/index.js";
+
+const route = useRoute();
+const router = useRouter();
 
 const workspaces = ref([]);
 const totalItems = ref(0);
 const loading = ref(false);
-const first = ref(0);
-const rows = ref(5);
+
+const rows = ref(parseInt(route.query.limit) || 5);
+
+const first = ref(((parseInt(route.query.page) || 1) - 1) * rows.value);
 
 const loadWorkspaces = () => {
   loading.value = true;
@@ -67,23 +63,44 @@ const loadWorkspaces = () => {
     workspaces.value = response.data;
     totalItems.value = response.totalItems;
     loading.value = false;
-    if (totalItems.value === 0) {
+
+    if (totalItems.value === 0 && !loading.value) {
       router.push({name: 'app_workspace_create'});
     }
   });
 };
 
 const onPage = (event) => {
-  first.value = event.first;
-  rows.value = event.rows;
-  loadWorkspaces();
+  const page = (event.first / event.rows) + 1;
+  const limit = event.rows;
+
+  router.push({
+    query: {
+      ...route.query,
+      page: page,
+      limit: limit
+    }
+  });
 };
+
+watch(
+    () => route.query,
+    (newQuery) => {
+      const newPage = parseInt(newQuery.page) || 1;
+      const newLimit = parseInt(newQuery.limit) || 5;
+
+      rows.value = newLimit;
+      first.value = (newPage - 1) * newLimit;
+
+      loadWorkspaces();
+    }
+);
 
 onMounted(() => {
   loadWorkspaces();
-
 });
 </script>
+
 <style scoped>
 .edit-icon {
   color: #E2E8F0;
