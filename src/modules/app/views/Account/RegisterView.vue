@@ -17,6 +17,7 @@
         <CustomInputText
             id="email"
             name="email"
+            v-model="payload.email"
             label="E-Mail"
             icon="pi pi-at"
             type="email"
