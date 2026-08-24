@@ -4,10 +4,10 @@ import {computed, ref} from "vue";
 
 
 export const useClientIDStore = defineStore('clientID', () => {
-  const uniqueClientID = ref('');
+  const uniqueClientID = ref(null);
 
   const hasClientID = computed(() => {
-    return uniqueClientID.value !== null;
+    return !!uniqueClientID.value;
   })
 
   function regenerateClientID() {

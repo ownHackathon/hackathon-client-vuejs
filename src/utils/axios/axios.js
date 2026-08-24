@@ -7,16 +7,19 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
-
+  const clientIDStore = useClientIDStore();
+  if (!clientIDStore.hasClientID) {
+    clientIDStore.regenerateClientID();
+  }
   const authStore = useAuthStore();
   const accessToken = authStore.accessToken;
-
 
   if (accessToken) {
     config.headers.Authorization = authStore.accessToken;
   }
 
   config.headers["Content-Type"] = "application/json";
+  config.headers['x-ident'] = clientIDStore.uniqueClientID;
 
   return config;
 });
@@ -34,7 +37,7 @@ axios.interceptors.response.use(function (response) {
       originalRequest._retry = true;
     }
     try {
-      authStore.accessToken = undefined
+      authStore.accessToken = undefined;
       const refreshResponse = await axios.get('/api/token/refresh',
           {
             headers: {
