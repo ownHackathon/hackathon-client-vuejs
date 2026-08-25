@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import {useAuthStore} from "@/stores/AuthStore.js";
+import {WorkspaceService} from "@/modules/app/service/WorkspaceService.js";
 
 const router = createRouter({
       history: createWebHistory('/'),
@@ -88,6 +89,18 @@ const router = createRouter({
                   path: 'list/me',
                   name: 'app_workspace_me',
                   component: () => import('@/modules/app/views/Workspace/OwnWorkspacesView.vue'),
+                  beforeEnter: async (to, from, next) => {
+                    try {
+                      const response = await WorkspaceService.getOwnWorkspaces({ first: 0, rows: 1 });
+                      if (response.totalItems === 0) {
+                        next({ name: 'app_workspace_create' });
+                      } else {
+                        next();
+                      }
+                    } catch (error) {
+                      next();
+                    }
+                  }
                 },
                 {
                   path: 'create',

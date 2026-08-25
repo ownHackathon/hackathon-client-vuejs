@@ -10,7 +10,6 @@
         :loading="loading"
         @page="onPage"
         :rowsPerPageOptions="[5, 10, 20]"
-
     >
       <Column field="name" header="Workspace" style="min-width: 30%" class="width-100-on-mobile">
         <template #body="{ data }">
@@ -63,10 +62,6 @@ const loadWorkspaces = () => {
     workspaces.value = response.data;
     totalItems.value = response.totalItems;
     loading.value = false;
-
-    if (totalItems.value === 0 && !loading.value) {
-      router.push({name: 'app_workspace_create'});
-    }
   });
 };
 
