@@ -2,14 +2,14 @@ import {defineStore} from 'pinia';
 import {computed, ref} from "vue";
 
 export const useAuthStore = defineStore('authStore', () => {
-      const accessToken = ref('');
-      const refreshToken = ref('');
+      const accessToken = ref(null);
+      const refreshToken = ref(null);
 
       const isLoggedIn = computed(() => !!accessToken.value);
 
       function logOut() {
-        accessToken.value = '';
-        refreshToken.value = '';
+        accessToken.value = null;
+        refreshToken.value = null;
       }
 
       return {accessToken, refreshToken, isLoggedIn, logOut};
