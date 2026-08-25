@@ -95,6 +95,7 @@ const workspace = ref({
     }
 );
 const notFound = ref(false);
+const userPermissions = [];
 
 const isDetails = computed(() => {
   const details = workspace.value.details ? workspace.value.details?.trim() : '';
@@ -118,7 +119,6 @@ const loadWorkspace = (slug) => {
     workspace.value = response.data;
   });
 };
-const userPermissions = ['edit', 'settings'];
 
 const can = computed(() => {
   return (perm) => userPermissions.includes(perm);
