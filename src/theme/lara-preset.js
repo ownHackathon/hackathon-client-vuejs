@@ -137,17 +137,6 @@ const stylePreset = definePreset(Aura, {
         }
       }
     },
-    button: {
-      colorScheme: {
-        dark: {
-          text: {
-            secondary: {
-              color: '{primary.200}',
-            }
-          }
-        }
-      }
-    }
   },
 });
 

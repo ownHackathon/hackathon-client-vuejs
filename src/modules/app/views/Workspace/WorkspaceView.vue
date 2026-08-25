@@ -5,23 +5,28 @@
   <div v-else class="card">
     <div class="flex">
       <div class="w-6">
-        <Button
+        <ButtonGroup>
+          <Button v-if="can('edit')"
+              label="Bearbeiten"
+              severity="info"
+              variant="text"
+              icon="pi pi-pencil"
+          />
+        <Button v-if="can('settings')"
             label="Einstellungen"
-            severity="secondary"
-            variant="outlined"
-            @click="scrollToTop"
+            severity="info"
+            variant="text"
             icon="pi pi-cog"
-            disabled
+
         />
+        </ButtonGroup>
       </div>
       <div class="w-6 flex justify-content-end">
         <Button
             label="Folgen"
-            severity="secondary"
+            severity="help"
             variant="outlined"
-            @click="scrollToTop"
             icon="pi pi-heart"
-            disabled
         />
       </div>
 
@@ -97,13 +102,6 @@ const isDetails = computed(() => {
   return details.length > 0;
 });
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-};
-
 onMounted(() => {
   const data = history.state;
   const slug = data?.slug ?? props?.slug ?? 'undefined';
@@ -120,6 +118,11 @@ const loadWorkspace = (slug) => {
     workspace.value = response.data;
   });
 };
+const userPermissions = ['edit', 'settings'];
+
+const can = computed(() => {
+  return (perm) => userPermissions.includes(perm);
+})
 
 </script>
 

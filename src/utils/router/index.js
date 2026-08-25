@@ -83,11 +83,11 @@ const router = createRouter({
             },
             {
               path: 'workspace',
-              meta: {requiresAuth: true},
               children: [
                 {
                   path: 'list/me',
                   name: 'app_workspace_me',
+                  requiresAuth: true,
                   component: () => import('@/modules/app/views/Workspace/OwnWorkspacesView.vue'),
                   beforeEnter: async (to, from, next) => {
                     try {
@@ -105,6 +105,7 @@ const router = createRouter({
                 {
                   path: 'create',
                   name: 'app_workspace_create',
+                  requiresAuth: true,
                   component: () => import('@/modules/app/views/Workspace/WorkspaceCreate.vue')
                 },
                 {
