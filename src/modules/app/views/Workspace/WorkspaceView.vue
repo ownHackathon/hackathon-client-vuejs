@@ -3,6 +3,29 @@
     <NotFoundView/>
   </div>
   <div v-else class="card">
+    <div class="flex">
+      <div class="w-6">
+        <Button
+            label="Einstellungen"
+            severity="secondary"
+            variant="outlined"
+            @click="scrollToTop"
+            icon="pi pi-cog"
+            disabled
+        />
+      </div>
+      <div class="w-6 flex justify-content-end">
+        <Button
+            label="Folgen"
+            severity="secondary"
+            variant="outlined"
+            @click="scrollToTop"
+            icon="pi pi-heart"
+            disabled
+        />
+      </div>
+
+    </div>
     <div class="text-center text-primary-0"><p style="font-size: 1.5rem">{{ workspace.name }}</p></div>
     <div class="text-center text-primary-0"><p>{{ workspace.description }}</p></div>
     <Fieldset
@@ -20,11 +43,11 @@
       <template #togglericon="{ collapsed }">
         <i :class="collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'"/>
       </template>
-    <div class="text-primary-0">
-      <MarkdownViewer
-          :value="workspace.details"
-      />
-    </div>
+      <div class="text-primary-0">
+        <MarkdownViewer
+            :value="workspace.details"
+        />
+      </div>
     </Fieldset>
     <div class="text-right">
       <p>
@@ -39,14 +62,6 @@
     </div>
     <div>
       <p>Liste verfügbarer Events</p>
-    </div>
-    <div class="flex justify-content-end">
-      <Button
-          label="nach oben"
-          variant="text"
-          @click="scrollToTop"
-          icon="pi pi-arrow-up"
-      />
     </div>
   </div>
 </template>
@@ -80,7 +95,7 @@ const isDetails = computed(() => {
   const details = workspace.value.details ? workspace.value.details?.trim() : '';
 
   return details.length > 0;
-})
+});
 
 const scrollToTop = () => {
   window.scrollTo({
